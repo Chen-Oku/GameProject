@@ -67,21 +67,21 @@ public class AnimationState : MonoBehaviour
         }
 
         //Si el jugador presiona una tecla de movimiento
-        if (!isWalking && forwardPressed)
+        if (!isWalking && movementKeyPressed)
         {
             animator.SetBool(isWalkingHash, true);
         }
         else
         {
             // Si el jugador no est  presionando una tecla de movimiento
-            if (isWalking && !forwardPressed)
+            if (isWalking && !movementKeyPressed)
             {
                 animator.SetBool(isWalkingHash, false);
             }
         else
                 {
             // Si el jugador no est  presionando una tecla de movimiento
-            if (forwardPressed && jumpPressed)
+            if (movementKeyPressed && jumpPressed)
             {
                 animator.SetBool(isWalkingHash, false);
                 animator.SetBool(isJumpingHash, true);
@@ -90,20 +90,20 @@ public class AnimationState : MonoBehaviour
         }
 
         // Si el jugador est  caminando y presiona la tecla de correr
-        if (forwardPressed && runPressed)
+        if (movementKeyPressed  && runPressed)
         {
             animator.SetBool(isRunningHash, true);
         }
         else
         {
             // Si el jugador no est  presionando la tecla de correr
-            if (!forwardPressed || !runPressed)
+            if (!movementKeyPressed || !runPressed)
             {
                 animator.SetBool(isRunningHash, false);
             }
         }
                 //Si el jugador presiona la tecla de salto o la tecla de salto y una tecla de movimiento
-                if (jumpPressed || (jumpPressed && forwardPressed))
+                if (jumpPressed || (jumpPressed && movementKeyPressed))
                     {
                         animator.SetBool(isJumpingHash, true);               
                     }
