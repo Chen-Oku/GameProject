@@ -62,7 +62,7 @@ public class PlayerHealth : MonoBehaviour
         }
         
         // Verificar si el jugador ha muerto
-        if (currentHealth <= 0)
+        if (currentHealth <= 0 && !isDead)
         {
             Die();
         }
@@ -81,6 +81,8 @@ public class PlayerHealth : MonoBehaviour
         // Método para manejar la muerte del jugador
     void Die()
     {
+        isDead = true; // Establecer
+
         // Activar la animación de muerte
         if (animator != null)
         {

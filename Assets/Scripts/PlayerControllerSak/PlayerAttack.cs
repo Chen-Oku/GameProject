@@ -7,8 +7,10 @@ public class PlayerAttack : MonoBehaviour
     public float attackDamage = 10f; // Daño del ataque
     public float attackRange = 1.5f; // Rango del ataque
     public LayerMask enemyLayer; // Capa de los enemigos
+    public float attackCooldown = 1f; // Tiempo de espera entre ataques
 
     private Animator animator;
+    private bool canAttack = true;
 
     void Start()
     {
@@ -21,13 +23,35 @@ public class PlayerAttack : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)) // Botón izquierdo del ratón para atacar
+        if (Input.GetMouseButtonDown(0) && canAttack) // Botón izquierdo del ratón para atacar
         {
-            Attack();
+            StartCoroutine(Attack());
         }
     }
+    /*
+        void Attack()
+        {
+            if (animator != null)
+            {
+                // Reproducir la animación de ataque
+                animator.SetTrigger("isAttacking");
+            }
 
-    void Attack()
+            // Detectar enemigos en el rango de ataque
+            Collider[] hitEnemies = Physics.OverlapSphere(transform.position + transform.forward * attackRange, attackRange, enemyLayer);
+
+            // Aplicar daño a los enemigos detectados
+            foreach (Collider enemy in hitEnemies)
+            {
+                EnemyHealth enemyScript = enemy.GetComponent<EnemyHealth>();
+                if (enemyScript != null)
+                {
+                    enemyScript.TakeDamage((int)attackDamage); // Convertir attackDamage a int
+                }
+            }
+        }
+    */
+    IEnumerator Attack()
     {
         if (animator != null)
         {
@@ -35,6 +59,24 @@ public class PlayerAttack : MonoBehaviour
             animator.SetTrigger("isAttacking");
         }
 
+        // Deshabilitar la capacidad de atacar
+        canAttack = false;
+
+        // Esperar hasta que la animación de ataque haya terminado
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+
+        // Esperar el tiempo de cooldown adicional
+        yield return new WaitForSeconds(attackCooldown);
+
+
+
+
+        // Habilitar la capacidad de atacar nuevamente
+        canAttack = true;
+    }
+
+    public void PerformAttack()
+    {
         // Detectar enemigos en el rango de ataque
         Collider[] hitEnemies = Physics.OverlapSphere(transform.position + transform.forward * attackRange, attackRange, enemyLayer);
 
@@ -47,6 +89,7 @@ public class PlayerAttack : MonoBehaviour
                 enemyScript.TakeDamage((int)attackDamage); // Convertir attackDamage a int
             }
         }
+
     }
 
     // Dibujar el rango de ataque en la escena para depuración

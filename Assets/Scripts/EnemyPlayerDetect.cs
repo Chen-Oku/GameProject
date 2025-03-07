@@ -13,6 +13,7 @@ public class EnemyPlayerDetect : MonoBehaviour
     public NavMeshAgent agent; // Agente de navegación
     public Transform player; // Jugador
     public LayerMask Terrain, Player; // Capas de terreno y jugador
+
     //public float health;
     //public TextMeshProUGUI healthUI; 
 
@@ -82,12 +83,21 @@ public class EnemyPlayerDetect : MonoBehaviour
         ////se alcanza el punto de caminata
         //if (distanceToWalkPoint.magnitude < 1f)
         //    walkPointSet = false;
+        // Actualizar el estado de animación
+        animator.SetBool("isPatrolling", true);
+        animator.SetBool("isChasing", false);
+       
+
     }
     
     private void ChasePlayer()
     {
         agent.SetDestination(player.position);
-    }
+
+        // Actualizar el estado de animación
+        animator.SetBool("isPatrolling", false);
+        animator.SetBool("isChasing", true);
+            }
 
 private void AttackPlayer()
     {
@@ -108,6 +118,11 @@ private void AttackPlayer()
             //atacar al jugador
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
+
+            // Actualizar el estado de animación
+            animator.SetBool("isPatrolling", false);
+            animator.SetBool("isChasing", false);
+            animator.SetTrigger("isAttacking1");
 
         }
     }

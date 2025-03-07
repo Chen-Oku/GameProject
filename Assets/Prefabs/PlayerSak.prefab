@@ -384,7 +384,7 @@ GameObject:
   - component: {fileID: 7594558940353780872}
   - component: {fileID: 4739828497753277623}
   m_Layer: 6
-  m_Name: === Camera ===
+  m_Name: === CameraHolder ===
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -629,7 +629,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackDamage: 10
-  attackRange: 1.5
+  attackRange: 2
   enemyLayer:
     serializedVersion: 2
     m_Bits: 8
