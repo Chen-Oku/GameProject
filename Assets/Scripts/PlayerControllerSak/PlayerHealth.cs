@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public float maxHealth = 100f; // Salud máxima del jugador
+    public Slider healthBar; 
+    public float maxHealth = 100f; // Salud mï¿½xima del jugador
     private float currentHealth; // Salud actual del jugador
     private Animator animator; // Componente Animator
     public TextMeshProUGUI healthUI;
@@ -17,11 +19,23 @@ public class PlayerHealth : MonoBehaviour
 
     void Start()
     {
+        /* 
         healthUI.text = currentHealth.ToString();
         anim = GetComponent<Animator>();
         startPos = transform.position;
+        healthBar.maxValue = maxHealth;
+        healthBar.value = currentHealth; 
 
         currentHealth = maxHealth; // Inicializar la salud actual
+        */
+        currentHealth = maxHealth; // Inicializar la salud actual
+        healthBar.maxValue = maxHealth;
+        healthBar.value = currentHealth;
+
+        healthUI.text = currentHealth.ToString();
+
+        anim = GetComponent<Animator>();
+        startPos = transform.position;
 
         if (healthUI != null)
         {
@@ -29,24 +43,25 @@ public class PlayerHealth : MonoBehaviour
         }
         else
         {
-            Debug.LogError("No se encontró el componente TextMeshProUGUI en " + gameObject.name);
+            Debug.LogError("No se encontrï¿½ el componente TextMeshProUGUI en " + gameObject.name);
         }
 
         animator = GetComponent<Animator>(); // Obtener el componente Animator
         if (animator == null)
         {
-            Debug.LogError("No se encontró el componente Animator en " + gameObject.name);
+            Debug.LogError("No se encontrï¿½ el componente Animator en " + gameObject.name);
         }
     }
 
-    // Método para recibir daño
+    // Mï¿½todo para recibir daï¿½o
     public void TakeDamage(float damage)
     {
         currentHealth -= damage; // Reducir la salud actual
         if (currentHealth < 0) currentHealth = 0; // Asegurarse de que la salud no sea negativa
+        healthBar.value = currentHealth; 
 
-        // Imprimir mensaje de depuración
-        print("Jugador recibió daño: " + damage + ". Salud actual: " + currentHealth);
+        // Imprimir mensaje de depuraciï¿½n
+        print("Jugador recibiï¿½ daï¿½o: " + damage + ". Salud actual: " + currentHealth);
 
         // Actualizar la UI de salud
         if (healthUI != null)
@@ -54,7 +69,7 @@ public class PlayerHealth : MonoBehaviour
             healthUI.text = currentHealth.ToString();
         }
 
-        // Activar la animación de recibir daño
+        // Activar la animaciï¿½n de recibir daï¿½o
         if (animator != null)
         {
             animator.SetBool("isHit", true);
@@ -68,28 +83,28 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    // Corrutina para desactivar la animación de recibir daño después de un breve período de tiempo
+    // Corrutina para desactivar la animaciï¿½n de recibir daï¿½o despuï¿½s de un breve perï¿½odo de tiempo
     IEnumerator ResetHitAnimation()
     {
-        yield return new WaitForSeconds(0.5f); // Ajusta el tiempo según sea necesario
+        yield return new WaitForSeconds(0.5f); // Ajusta el tiempo segï¿½n sea necesario
         if (animator != null)
         {
             animator.SetBool("isHit", false);
         }
 
     }
-        // Método para manejar la muerte del jugador
+        // Mï¿½todo para manejar la muerte del jugador
     void Die()
     {
         isDead = true; // Establecer
 
-        // Activar la animación de muerte
+        // Activar la animaciï¿½n de muerte
         if (animator != null)
         {
             animator.SetBool("isDead", true);
         }
 
-        // Desactivar el objeto del jugador después de un tiempo
+        // Desactivar el objeto del jugador despuï¿½s de un tiempo
         Destroy(gameObject, 5f);
     }
 

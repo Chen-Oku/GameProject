@@ -14,7 +14,7 @@ public class AnimationStateSak : MonoBehaviour
 
     bool isAttacking = false; // Variable de estado para el ataque
 
-    // Start is called antes de la primera actualización del frame
+    // Start is called antes de la primera actualizaciï¿½n del frame
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -28,7 +28,7 @@ public class AnimationStateSak : MonoBehaviour
     // Update se llama una vez por frame
     void Update()
     {
-        if (isAttacking) return; // Bloquear el movimiento si el jugador está atacando
+        if (isAttacking) return; // Bloquear el movimiento si el jugador estï¿½ atacando
 
         bool isWalking = animator.GetBool(isWalkingHash);
         bool forwardPressed = Input.GetKey("w") || Input.GetKey("s");
@@ -40,7 +40,7 @@ public class AnimationStateSak : MonoBehaviour
 
         bool movementKeyPressed = Mathf.Abs(horizontal) > 0.1f || Mathf.Abs(vertical) > 0.1f;
 
-        if (Input.GetMouseButtonDown(0)) // Botón izquierdo del ratón para atacar
+        if (Input.GetMouseButtonDown(0)) // Botï¿½n izquierdo del ratï¿½n para atacar
         {
             animator.SetBool(isAttackingHash, true);
             animator.SetBool(isWalkingHash, false);
@@ -61,25 +61,33 @@ public class AnimationStateSak : MonoBehaviour
         }
         else
         {
-            // Si el jugador no está presionando una tecla de movimiento
+            // Si el jugador no estï¿½ presionando una tecla de movimiento
             if (isWalking && !movementKeyPressed)
             {
                 animator.SetBool(isWalkingHash, false);
             }
         }
 
-         // Si el jugador está caminando y presiona la tecla de correr
-        if (forwardPressed &&  runPressed)
+        // Si el jugador presiona la tecla de avanzar y tambiÃ©n la tecla de correr
+        if (forwardPressed)
         {
-            animator.SetBool(isRunningHash, true);
+            if (runPressed)
+            {
+                animator.SetBool(isRunningHash, true);
+                animator.SetBool(isWalkingHash, false); // AsegÃºrate de que no estÃ© caminando
+                print("isRunning");
+            }
+            else
+            {
+                animator.SetBool(isRunningHash, false);
+                animator.SetBool(isWalkingHash, true); // Cambia a caminar si no estÃ¡ corriendo
+            }
         }
         else
         {
-            // Si el jugador no está presionando la tecla de correr
-            if (!forwardPressed && !runPressed)
-            {
-                animator.SetBool(isRunningHash, false);
-            }
+            // Si no estÃ¡ presionando avanzar, no estÃ¡ caminando ni corriendo
+            animator.SetBool(isRunningHash, false);
+            animator.SetBool(isWalkingHash, false);
         }
 
         // Si el jugador presiona la tecla de salto
@@ -90,7 +98,7 @@ public class AnimationStateSak : MonoBehaviour
         }
         else
         {
-            // Si el jugador no está presionando la tecla de salto
+            // Si el jugador no estï¿½ presionando la tecla de salto
             if (!jumpPressed)
             {
                 animator.SetBool(isJumpingHash, false);
