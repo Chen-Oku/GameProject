@@ -69,7 +69,7 @@ public class PathPatrol : MonoBehaviour
 {
     public Transform[] waypoints; // Array de puntos de patrulla
     public float speed = 2f; // Velocidad de movimiento
-    private int currentWaypointIndex = 0; // Índice del punto de patrulla actual
+    //private int currentWaypointIndex = 0; // Índice del punto de patrulla actual
     public int targetPoint; // Punto de patrulla al que se dirige
     public float rotationSpeed = 5f; // Velocidad de rotación
     private NavMeshAgent agent;

@@ -41,10 +41,10 @@ public class PlayerAttack : MonoBehaviour
         // Aplicar daño a los enemigos detectados
         foreach (Collider enemy in hitEnemies)
         {
-            Enemy enemyScript = enemy.GetComponent<Enemy>();
+            EnemyHealth enemyScript = enemy.GetComponent<EnemyHealth>();
             if (enemyScript != null)
             {
-                enemyScript.Hit((int)attackDamage); // Convertir attackDamage a int
+                enemyScript.TakeDamage((int)attackDamage); // Convertir attackDamage a int
             }
         }
     }

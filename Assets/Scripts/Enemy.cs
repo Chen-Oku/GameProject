@@ -7,6 +7,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public float health = 50f;
+    public float attackRange = 1.0f; // Rango del ataque
 
     private bool isInvincible = false;
     bool isDead;
