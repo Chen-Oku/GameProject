@@ -32,6 +32,7 @@ public class AnimationStateSak : MonoBehaviour
 
         bool isWalking = animator.GetBool(isWalkingHash);
         bool forwardPressed = Input.GetKey("w") || Input.GetKey("s");
+        bool horizontalPressed = Input.GetKey("a") || Input.GetKey("d");
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
         bool runPressed = Input.GetKey("left shift");
@@ -69,7 +70,7 @@ public class AnimationStateSak : MonoBehaviour
         }
 
         // Si el jugador presiona la tecla de avanzar y también la tecla de correr
-        if (forwardPressed)
+        if (forwardPressed || horizontalPressed)
         {
             if (runPressed)
             {
