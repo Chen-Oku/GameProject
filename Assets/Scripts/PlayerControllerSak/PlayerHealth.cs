@@ -7,12 +7,12 @@ using UnityEngine.UI;
 public class PlayerHealth : MonoBehaviour
 {
     public float maxHealth = 100f; // Salud m�xima del jugador
-    private float currentHealth; // Salud actual del jugador
+    public float currentHealth; // Salud actual del jugador
     private Animator animator; // Componente Animator
     public TextMeshProUGUI healthUI;
     bool isDead;
 
-    public GameObject healthBarUI;
+    //public GameObject healthBarUI;
     public Slider slider; 
 
     Vector3 startPos;
@@ -47,15 +47,15 @@ public class PlayerHealth : MonoBehaviour
     {
         slider.value = CalculateCurrentHealth();
 
-        if (currentHealth < maxHealth)
-        {
-            healthBarUI.SetActive(true);
-        }
+        //if (currentHealth < maxHealth)
+        //{
+        //    healthBarUI.SetActive(true);
+        //}
 
-        if (currentHealth <= 0)
-        {
-            healthBarUI.SetActive(false);
-        }
+        //if (currentHealth <= 0)
+        //{
+        //    healthBarUI.SetActive(false);
+        //}
 
         if (currentHealth > maxHealth)
         {
@@ -90,12 +90,12 @@ public class PlayerHealth : MonoBehaviour
             StartCoroutine(ResetHitAnimation());
         }
 
-        if (healthBarUI != null)
-        {
-            healthBarUI.SetActive(true);
-            StopCoroutine(HideHealthBar());
-            StartCoroutine(HideHealthBar());
-        }
+        //if (healthBarUI != null)
+        //{
+        //    healthBarUI.SetActive(true);
+        //    StopCoroutine(HideHealthBar());
+        //    StartCoroutine(HideHealthBar());
+        //}
 
         // Verificar si el jugador ha muerto
         if (currentHealth <= 0 && !isDead)
@@ -115,7 +115,7 @@ public class PlayerHealth : MonoBehaviour
 
     }
 
-    // Corrutina para ocultar la barra de salud después de un retraso
+    /*// Corrutina para ocultar la barra de salud después de un retraso
     IEnumerator HideHealthBar()
     {
         yield return new WaitForSeconds(2f); // Ajusta el tiempo según sea necesario
@@ -123,9 +123,9 @@ public class PlayerHealth : MonoBehaviour
         {
             healthBarUI.SetActive(false);
         }
-    }
+    }*/
 
-        // Metodo para manejar la muerte del jugador
+    // Metodo para manejar la muerte del jugador
     void Die()
     {
         isDead = true; // Establecer
@@ -138,6 +138,33 @@ public class PlayerHealth : MonoBehaviour
 
         // Desactivar el objeto del jugador despu�s de un tiempo
         Destroy(gameObject, 5f);
+    }
+
+    // Método para recoger el power-up de salud
+    public void CollectHealthBuff(float healthAmount)
+    {
+        currentHealth += healthAmount; // Aumentar la salud actual
+        if (currentHealth > maxHealth) currentHealth = maxHealth; // Asegurarse de que la salud no exceda el máximo
+
+        // Actualizar la UI de salud
+        if (healthUI != null)
+        {
+            healthUI.text = currentHealth.ToString();
+        }
+
+        // Actualizar el slider de salud
+        if (slider != null)
+        {
+            slider.value = CalculateCurrentHealth();
+        }
+
+        /*// Mostrar la barra de salud y reiniciar la corrutina para ocultarla
+        if (healthBarUI != null)
+        {
+            healthBarUI.SetActive(true);
+            StopCoroutine(HideHealthBar());
+            StartCoroutine(HideHealthBar());
+        }*/
     }
 
 
