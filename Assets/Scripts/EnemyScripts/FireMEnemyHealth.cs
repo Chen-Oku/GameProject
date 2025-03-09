@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FireMEnemyHealth : MonoBehaviour, IEnemy
 {
@@ -11,12 +12,16 @@ public class FireMEnemyHealth : MonoBehaviour, IEnemy
     public bool isAttackable = true;
     private bool isDead;
 
+    public GameObject healthBarUI;
+    public Slider slider;
+
     private Animation animationComponent; // Componente Animation
     Vector3 startPos;
 
     void Start()
     {
         currentHealth = maxHealth; // Inicializar la salud actual
+        slider.value = CalculateCurrentHealth();
         if (healthUI != null)
         {
             healthUI.text = currentHealth.ToString();
@@ -31,6 +36,37 @@ public class FireMEnemyHealth : MonoBehaviour, IEnemy
         {
             Debug.LogError("No se encontró el componente Animation en " + gameObject.name);
         }
+
+        // Asegurarse de que la barra de salud esté oculta al inicio
+        if (healthBarUI != null)
+        {
+            healthBarUI.SetActive(false);
+        }
+    }
+
+    void Update()
+    {
+        slider.value = CalculateCurrentHealth();
+
+        if (currentHealth < maxHealth)
+        {
+            healthBarUI.SetActive(true);
+        }
+
+        if (currentHealth <= 0)
+        {
+            healthBarUI.SetActive(false);
+        }
+
+        if (currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+    }
+
+    float CalculateCurrentHealth()
+    {
+        return currentHealth / maxHealth;
     }
 
     public void TakeDamage(float damage)
@@ -55,10 +91,28 @@ public class FireMEnemyHealth : MonoBehaviour, IEnemy
             animationComponent.Play("Anim_Damage");
         }
 
+        // Mostrar la barra de salud y reiniciar la corrutina para ocultarla
+        if (healthBarUI != null)
+        {
+            healthBarUI.SetActive(true);
+            StopCoroutine(HideHealthBar());
+            StartCoroutine(HideHealthBar());
+        }
+
         // Verificar si el enemigo ha muerto
         if (currentHealth <= 0)
         {
             Die();
+        }
+    }
+
+    // Corrutina para ocultar la barra de salud después de un retraso
+    IEnumerator HideHealthBar()
+    {
+        yield return new WaitForSeconds(2f); // Ajusta el tiempo según sea necesario
+        if (healthBarUI != null)
+        {
+            healthBarUI.SetActive(false);
         }
     }
 

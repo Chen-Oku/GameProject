@@ -44,6 +44,8 @@ public class TurtlePlayerDetect : MonoBehaviour
 
     void Update()
     {
+        if (enemyHealth.IsDead) return; // No realizar ninguna acción si el enemigo está muerto
+
         // Verificar si el jugador está en el rango de visión y ataque
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, Player);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, Player);
@@ -51,6 +53,15 @@ public class TurtlePlayerDetect : MonoBehaviour
         if (!playerInSightRange && !playerInAttackRange) Patrolling();
         if (playerInSightRange && !playerInAttackRange) ChasePlayer();
         if (playerInSightRange && playerInAttackRange) AttackPlayer();
+
+        // Verificar si el enemigo ha alcanzado su punto de caminata
+        if (agent.remainingDistance < 0.5f && !agent.pathPending)
+        {
+            animator.SetBool("isPatrolling", true);
+            animator.SetBool("isChasing", false);
+            animator.ResetTrigger("isAttacking1");
+            MoveToNextWaypoint();
+        }
     }
 
     private void Patrolling()
@@ -68,6 +79,8 @@ public class TurtlePlayerDetect : MonoBehaviour
 
     private void MoveToNextWaypoint()
     {
+        if (enemyHealth.IsDead) return; // No realizar ninguna acción si el enemigo está muerto
+
         if (waypoints.Length == 0) return;
 
         // Incrementar el índice del punto de patrulla actual
@@ -101,10 +114,18 @@ public class TurtlePlayerDetect : MonoBehaviour
         if (!alreadyAttacked)
         {
             // Instanciar el proyectil en el punto de spawn
-            Rigidbody rb = Instantiate(projectile, spawnProjectile.position, Quaternion.identity).GetComponent<Rigidbody>();
-            // Aplica fuerzas al proyectil para lanzarlo.
-            rb.AddForce(spawnProjectile.forward * 32f, ForceMode.Impulse);
-            print("Proyectil lanzado");
+            GameObject instantiatedProjectile = Instantiate(projectile, spawnProjectile.position, Quaternion.identity);
+            Rigidbody rb = instantiatedProjectile.GetComponent<Rigidbody>();
+
+            if (rb != null)
+            {
+                // Calcular la dirección hacia el jugador
+                Vector3 direction = (player.position - spawnProjectile.position).normalized;
+
+                // Aplica la velocidad al proyectil para lanzarlo hacia el jugador
+                rb.velocity = direction * 32f; // Usar velocity en lugar de AddForce para un control más directo
+                print("Proyectil lanzado");
+            }
 
             // Atacar al jugador
             alreadyAttacked = true;

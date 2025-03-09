@@ -10,6 +10,8 @@ public class ProjectileBh : MonoBehaviour
     public LayerMask playerLayer; // Capa del jugador
 
     private Rigidbody rb;
+    private MultiProjectilePool pool;
+    private string type;
 
     void Start()
     {
@@ -20,11 +22,14 @@ public class ProjectileBh : MonoBehaviour
             return;
         }
 
-        // Aplicar una fuerza inicial al proyectil
-        rb.velocity = transform.forward * speed;
-
         // Destruir el proyectil después de un tiempo de vida
-        Destroy(gameObject, lifeTime);
+        Invoke(nameof(ReturnToPool), lifeTime);
+    }
+
+    public void Initialize(MultiProjectilePool pool, string type)
+    {
+        this.pool = pool;
+        this.type = type;
     }
 
     void OnTriggerEnter(Collider other)
@@ -41,7 +46,19 @@ public class ProjectileBh : MonoBehaviour
             }
         }
 
-        // Destruir el proyectil al colisionar con cualquier objeto
-        Destroy(gameObject);
+        // Devolver el proyectil al pool al colisionar con cualquier objeto
+        ReturnToPool();
+    }
+
+    void ReturnToPool()
+    {
+        if (pool != null)
+        {
+            pool.ReturnProjectile(type, gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 }

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3859775705561558304}
   - component: {fileID: 3142905213074809707}
   m_Layer: 7
-  m_Name: Projectiles
+  m_Name: TurtleSpike
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
