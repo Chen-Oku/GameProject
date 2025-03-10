@@ -24,8 +24,10 @@ public class TurtlePlayerDetect : MonoBehaviour
     public Transform player; // Jugador
     public float timeBetweenAttacks; // Tiempo entre ataques
     private bool alreadyAttacked; // Para que el enemigo no ataque constantemente
-    public GameObject projectile; // Proyectil que lanzará el enemigo
+    public MultiProjectilePool projectilePool; // Pool de proyectiles
+    public string projectileType; // Tipo de proyectil
     public Transform spawnProjectile; // Punto de spawn del proyectil
+   
     //States
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
@@ -66,6 +68,8 @@ public class TurtlePlayerDetect : MonoBehaviour
 
     private void Patrolling()
     {
+        if (enemyHealth.IsDead) return; // No realizar ninguna acción si el enemigo está muerto
+
         if (waypoints.Length == 0) return;
 
         // Establecer el destino al siguiente punto de patrulla
@@ -113,8 +117,10 @@ public class TurtlePlayerDetect : MonoBehaviour
 
         if (!alreadyAttacked)
         {
-            // Instanciar el proyectil en el punto de spawn
-            GameObject instantiatedProjectile = Instantiate(projectile, spawnProjectile.position, Quaternion.identity);
+            // Obtener un proyectil del pool
+            GameObject instantiatedProjectile = projectilePool.GetProjectile(projectileType);
+            instantiatedProjectile.transform.position = spawnProjectile.position;
+            instantiatedProjectile.transform.rotation = Quaternion.identity;
             Rigidbody rb = instantiatedProjectile.GetComponent<Rigidbody>();
 
             if (rb != null)
@@ -122,9 +128,16 @@ public class TurtlePlayerDetect : MonoBehaviour
                 // Calcular la dirección hacia el jugador
                 Vector3 direction = (player.position - spawnProjectile.position).normalized;
 
-                // Aplica la velocidad al proyectil para lanzarlo hacia el jugador
+                // Aplica fuerzas al proyectil para lanzarlo hacia el jugador
                 rb.velocity = direction * 32f; // Usar velocity en lugar de AddForce para un control más directo
                 print("Proyectil lanzado");
+            }
+
+            // Inicializar el proyectil con el pool y el tipo
+            ProjectileBh projectileBh = instantiatedProjectile.GetComponent<ProjectileBh>();
+            if (projectileBh != null)
+            {
+                projectileBh.Initialize(projectilePool, projectileType);
             }
 
             // Atacar al jugador

@@ -27,6 +27,7 @@ public class FireMPlayerDetect : MonoBehaviour
     public MultiProjectilePool projectilePool; // Pool de proyectiles
     public string projectileType; // Tipo de proyectil
     public Transform spawnProjectile; // Punto de spawn del proyectil
+
     //States
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
