@@ -18,14 +18,23 @@ public class PlayerHealth : MonoBehaviour
     Vector3 startPos;
     Animator anim;
 
-
-    void Start()
+private float CurrentHealth{
+    get => currentHealth;
+    set
     {
-        currentHealth = maxHealth; // Inicializar la salud actual
-        slider.value = CalculateCurrentHealth();
-       
-        anim = GetComponent<Animator>();
-        startPos = transform.position;
+        if (value <= 0)
+        {
+            currentHealth = 0;
+            Die();
+        }
+        else if (value >= maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+        else
+        {
+            currentHealth = value;
+        }
 
         if (healthUI != null)
         {
@@ -36,6 +45,20 @@ public class PlayerHealth : MonoBehaviour
             Debug.LogError("No se encontr� el componente TextMeshProUGUI en " + gameObject.name);
         }
 
+        if (slider != null)
+        {
+            slider.value = CalculateCurrentHealth();
+        }
+    }
+}
+
+    void Start()
+    {
+        CurrentHealth = maxHealth; // Inicializar la salud actual
+       
+        anim = GetComponent<Animator>();
+        startPos = transform.position;
+
         animator = GetComponent<Animator>(); // Obtener el componente Animator
         if (animator == null)
         {
@@ -45,33 +68,19 @@ public class PlayerHealth : MonoBehaviour
 
     void Update()
     {
-        slider.value = CalculateCurrentHealth();
-
-        //if (currentHealth < maxHealth)
-        //{
-        //    healthBarUI.SetActive(true);
-        //}
-
-        //if (currentHealth <= 0)
-        //{
-        //    healthBarUI.SetActive(false);
-        //}
-
-        if (currentHealth > maxHealth)
-        {
-            currentHealth = maxHealth;
-        }
+        
     }
 
     float CalculateCurrentHealth()
     {
         return currentHealth / maxHealth;
     }
+
     // M�todo para recibir da�o
     public void TakeDamage(float damage)
     {
-        currentHealth -= damage; // Reducir la salud actual
-        if (currentHealth < 0) currentHealth = 0; // Asegurarse de que la salud no sea negativa
+        CurrentHealth -= damage; // Reducir la salud actual
+
        // healthBar.value = currentHealth; 
 
         // Imprimir mensaje de depuraci�n
@@ -89,19 +98,6 @@ public class PlayerHealth : MonoBehaviour
             animator.SetBool("isHit", true);
             StartCoroutine(ResetHitAnimation());
         }
-
-        //if (healthBarUI != null)
-        //{
-        //    healthBarUI.SetActive(true);
-        //    StopCoroutine(HideHealthBar());
-        //    StartCoroutine(HideHealthBar());
-        //}
-
-        // Verificar si el jugador ha muerto
-        if (currentHealth <= 0 && !isDead)
-        {
-            Die();
-        }
     }
     
     // Corrutina para desactivar la animaci�n de recibir da�o despu�s de un breve per�odo de tiempo
@@ -115,19 +111,11 @@ public class PlayerHealth : MonoBehaviour
 
     }
 
-    /*// Corrutina para ocultar la barra de salud después de un retraso
-    IEnumerator HideHealthBar()
-    {
-        yield return new WaitForSeconds(2f); // Ajusta el tiempo según sea necesario
-        if (healthBarUI != null)
-        {
-            healthBarUI.SetActive(false);
-        }
-    }*/
-
     // Metodo para manejar la muerte del jugador
     void Die()
     {
+        if(isDead) return; // Verificar si el jugador ya ha muerto
+
         isDead = true; // Establecer
 
         // Activar la animaci�n de muerte
@@ -143,28 +131,8 @@ public class PlayerHealth : MonoBehaviour
     // Método para recoger el power-up de salud
     public void CollectHealthBuff(float healthAmount)
     {
-        currentHealth += healthAmount; // Aumentar la salud actual
-        if (currentHealth > maxHealth) currentHealth = maxHealth; // Asegurarse de que la salud no exceda el máximo
-
-        // Actualizar la UI de salud
-        if (healthUI != null)
-        {
-            healthUI.text = currentHealth.ToString();
-        }
-
-        // Actualizar el slider de salud
-        if (slider != null)
-        {
-            slider.value = CalculateCurrentHealth();
-        }
-
-        /*// Mostrar la barra de salud y reiniciar la corrutina para ocultarla
-        if (healthBarUI != null)
-        {
-            healthBarUI.SetActive(true);
-            StopCoroutine(HideHealthBar());
-            StartCoroutine(HideHealthBar());
-        }*/
+        CurrentHealth += healthAmount; // Aumentar la salud actual
+       
     }
 
 
