@@ -65,16 +65,16 @@ public class PlayerAttack : MonoBehaviour
         // Esperar hasta que la animación de ataque haya terminado
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
 
+        // Detectar enemigos en el rango de ataque
+        PerformAttack();
+
         // Esperar el tiempo de cooldown adicional
         yield return new WaitForSeconds(attackCooldown);
-
-
-
 
         // Habilitar la capacidad de atacar nuevamente
         canAttack = true;
     }
-
+        
     public void PerformAttack()
     {
         // Detectar enemigos en el rango de ataque

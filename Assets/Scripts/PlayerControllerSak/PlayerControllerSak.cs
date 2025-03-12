@@ -13,6 +13,7 @@ public class PlayerControllerSak : MonoBehaviour
     public float turnSmoothTime = 0.1f;
     public float dashSpeed = 20f;
     public float dashDuration = 0.2f;
+    public float coyoteTime = 0.2f; // Tiempo de coyote
 
     private float turnSmoothVelocity;
     private Vector3 velocity;
@@ -20,10 +21,14 @@ public class PlayerControllerSak : MonoBehaviour
     private bool canDoubleJump;
     private bool isDashing;
     private float dashTime;
+    private float coyoteTimeCounter; // Contador de tiempo de coyote
+
+    private PlayerAttack playerAttack; // Referencia al script PlayerAttack
 
     void Start()
     {
         charController = charController ?? GetComponent<CharacterController>();
+        playerAttack = GetComponent<PlayerAttack>(); // Obtener el componente PlayerAttack
     }
 
     void Update()
@@ -33,6 +38,11 @@ public class PlayerControllerSak : MonoBehaviour
         {
             velocity.y = -2f;
             canDoubleJump = true;
+            coyoteTimeCounter = coyoteTime; // Reiniciar el contador de tiempo de coyote
+        }
+        else
+        {
+            coyoteTimeCounter -= Time.deltaTime; // Disminuir el contador de tiempo de coyote
         }
 
         if (!isDashing)
@@ -63,9 +73,10 @@ public class PlayerControllerSak : MonoBehaviour
     {
         if (Input.GetButtonDown("Jump"))
         {
-            if (isGrounded)
+            if (isGrounded || coyoteTimeCounter > 0f)
             {
                 velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+                coyoteTimeCounter = 0f; // Resetear el contador de tiempo de coyote después de saltar
             }
             else if (canDoubleJump)
             {

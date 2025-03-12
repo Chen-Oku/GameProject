@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 571718773324292297}
   - component: {fileID: 3596874053039096265}
   - component: {fileID: 1666161926274409395}
-  m_Layer: 7
+  m_Layer: 10
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4843,9 +4843,9 @@ GameObject:
   - component: {fileID: 8739359491721310040}
   - component: {fileID: 6649407820122727171}
   - component: {fileID: 1685822691716781333}
-  - component: {fileID: 88830613207202663}
-  m_Layer: 7
-  m_Name: FireBallP
+  - component: {fileID: 6247793898381990905}
+  m_Layer: 10
+  m_Name: EnergyBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9711,11 +9711,11 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.15
-  m_Height: 0.15
+  m_Radius: 0.2
+  m_Height: 0.2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &88830613207202663
+--- !u!114 &6247793898381990905
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9724,15 +9724,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 6820988876660420229}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71cb7803812e149479093aca2435490f, type: 3}
+  m_Script: {fileID: 11500000, guid: c61491d852898684fb94d10be9b7b38d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
-  lifeTime: 5
+  speed: 5
   damage: 10
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 64
+  lifeTime: 5
 --- !u!1 &7478506229896488666
 GameObject:
   m_ObjectHideFlags: 0
@@ -9744,7 +9741,7 @@ GameObject:
   - component: {fileID: 5645119216766536362}
   - component: {fileID: 2206585727532768120}
   - component: {fileID: 5574160167977069240}
-  m_Layer: 7
+  m_Layer: 10
   m_Name: FireBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}

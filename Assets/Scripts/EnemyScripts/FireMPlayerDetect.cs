@@ -117,6 +117,11 @@ public class FireMPlayerDetect : MonoBehaviour
             instantiatedProjectile.transform.rotation = Quaternion.identity;
             Rigidbody rb = instantiatedProjectile.GetComponent<Rigidbody>();
 
+            // Imprimir las coordenadas del punto de spawn y del proyectil instanciado
+            Debug.Log("SpawnProjectile Position: " + spawnProjectile.position);
+            Debug.Log("Instantiated Projectile Position: " + instantiatedProjectile.transform.position);
+
+
             if (rb != null)
             {
                 // Calcular la dirección hacia el jugador

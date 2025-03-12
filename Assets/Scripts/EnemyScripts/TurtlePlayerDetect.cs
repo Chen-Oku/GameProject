@@ -53,8 +53,8 @@ public class TurtlePlayerDetect : MonoBehaviour
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, Player);
 
         if (!playerInSightRange && !playerInAttackRange) Patrolling();
-        if (playerInSightRange && !playerInAttackRange) ChasePlayer();
-        if (playerInSightRange && playerInAttackRange) AttackPlayer();
+        else if (playerInSightRange && !playerInAttackRange) ChasePlayer();
+        else if (playerInSightRange && playerInAttackRange) AttackPlayer();
 
         // Verificar si el enemigo ha alcanzado su punto de caminata
         if (agent.remainingDistance < 0.5f && !agent.pathPending)
@@ -68,8 +68,6 @@ public class TurtlePlayerDetect : MonoBehaviour
 
     private void Patrolling()
     {
-        if (enemyHealth.IsDead) return; // No realizar ninguna acción si el enemigo está muerto
-
         if (waypoints.Length == 0) return;
 
         // Establecer el destino al siguiente punto de patrulla
@@ -83,8 +81,6 @@ public class TurtlePlayerDetect : MonoBehaviour
 
     private void MoveToNextWaypoint()
     {
-        if (enemyHealth.IsDead) return; // No realizar ninguna acción si el enemigo está muerto
-
         if (waypoints.Length == 0) return;
 
         // Incrementar el índice del punto de patrulla actual
@@ -93,9 +89,7 @@ public class TurtlePlayerDetect : MonoBehaviour
 
     private void ChasePlayer()
     {
-        if (enemyHealth.IsDead) return; // No perseguir si el enemigo está muerto
-
-        agent.SetDestination(player.position);
+       agent.SetDestination(player.position);
 
         // Actualizar el estado de animación
         animator.SetBool("isPatrolling", false);
@@ -105,9 +99,7 @@ public class TurtlePlayerDetect : MonoBehaviour
 
     private void AttackPlayer()
     {
-        if (enemyHealth.IsDead) return; // No atacar si el enemigo está muerto
-
-        // Verificar si el enemigo no se mueve
+       // Verificar si el enemigo no se mueve
         agent.SetDestination(transform.position);
 
         // Asegurarse de que solo se rota en el eje Y para mirar al jugador
