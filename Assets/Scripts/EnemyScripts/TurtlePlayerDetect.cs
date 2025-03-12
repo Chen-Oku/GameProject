@@ -12,12 +12,12 @@ public class TurtlePlayerDetect : MonoBehaviour
     public bool isAttackable = true;
 
     [Header("Enemy Interaction")]
-    public NavMeshAgent agent; // Agente de navegación
+    public NavMeshAgent agent; // Agente de navegaciï¿½n
     public LayerMask Terrain, Player; // Capas de terreno y jugador
 
     [Header("Patrol")]
     public Transform[] waypoints; // Array de puntos de patrulla
-    private int currentWaypointIndex = 0; // Índice del punto de patrulla actual
+    private int currentWaypointIndex = 0; // ï¿½ndice del punto de patrulla actual
     public float walkPointRange; // Rango de caminata
 
     [Header("Attack Stats")]
@@ -27,7 +27,7 @@ public class TurtlePlayerDetect : MonoBehaviour
     public MultiProjectilePool projectilePool; // Pool de proyectiles
     public string projectileType; // Tipo de proyectil
     public Transform spawnProjectile; // Punto de spawn del proyectil
-   
+
     //States
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
@@ -46,9 +46,9 @@ public class TurtlePlayerDetect : MonoBehaviour
 
     void Update()
     {
-        if (enemyHealth.IsDead) return; // No realizar ninguna acción si el enemigo está muerto
+        if (enemyHealth.IsDead) return; // No realizar ninguna acciï¿½n si el enemigo estï¿½ muerto
 
-        // Verificar si el jugador está en el rango de visión y ataque
+        // Verificar si el jugador estï¿½ en el rango de visiï¿½n y ataque
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, Player);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, Player);
 
@@ -73,7 +73,7 @@ public class TurtlePlayerDetect : MonoBehaviour
         // Establecer el destino al siguiente punto de patrulla
         agent.SetDestination(waypoints[currentWaypointIndex].position);
 
-        // Actualizar el estado de animación
+        // Actualizar el estado de animaciï¿½n
         animator.SetBool("isPatrolling", true);
         animator.SetBool("isChasing", false);
         animator.ResetTrigger("isAttacking1");
@@ -83,15 +83,15 @@ public class TurtlePlayerDetect : MonoBehaviour
     {
         if (waypoints.Length == 0) return;
 
-        // Incrementar el índice del punto de patrulla actual
+        // Incrementar el ï¿½ndice del punto de patrulla actual
         currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Length;
     }
 
     private void ChasePlayer()
     {
-       agent.SetDestination(player.position);
+        agent.SetDestination(player.position);
 
-        // Actualizar el estado de animación
+        // Actualizar el estado de animaciï¿½n
         animator.SetBool("isPatrolling", false);
         animator.SetBool("isChasing", true);
         animator.ResetTrigger("isAttacking1");
@@ -99,12 +99,12 @@ public class TurtlePlayerDetect : MonoBehaviour
 
     private void AttackPlayer()
     {
-       // Verificar si el enemigo no se mueve
+        // Verificar si el enemigo no se mueve
         agent.SetDestination(transform.position);
 
         // Asegurarse de que solo se rota en el eje Y para mirar al jugador
         Vector3 lookDirection = player.position - transform.position;
-        lookDirection.y = 0; // Mantener la rotación solo en el eje Y
+        lookDirection.y = 0; // Mantener la rotaciï¿½n solo en el eje Y
         transform.rotation = Quaternion.LookRotation(lookDirection);
 
         if (!alreadyAttacked)
@@ -112,16 +112,17 @@ public class TurtlePlayerDetect : MonoBehaviour
             // Obtener un proyectil del pool
             GameObject instantiatedProjectile = projectilePool.GetProjectile(projectileType);
             instantiatedProjectile.transform.position = spawnProjectile.position;
-            instantiatedProjectile.transform.rotation = Quaternion.identity;
+
+            // Hacer que el proyectil mire al jugador antes de lanzarse
+            instantiatedProjectile.transform.LookAt(player);
+
+            // Obtener el Rigidbody del proyectil
             Rigidbody rb = instantiatedProjectile.GetComponent<Rigidbody>();
 
             if (rb != null)
             {
-                // Calcular la dirección hacia el jugador
-                Vector3 direction = (player.position - spawnProjectile.position).normalized;
-
-                // Aplica fuerzas al proyectil para lanzarlo hacia el jugador
-                rb.velocity = direction * 32f; // Usar velocity en lugar de AddForce para un control más directo
+                // Usar la direcciÃ³n forward del proyectil para lanzarlo
+                rb.velocity = instantiatedProjectile.transform.forward * 32f;
                 print("Proyectil lanzado");
             }
 
@@ -136,7 +137,7 @@ public class TurtlePlayerDetect : MonoBehaviour
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
 
-            // Reproducir la animación de ataque
+            // Reproducir la animaciÃ³n de ataque
             animator.SetTrigger("isAttacking1");
         }
     }
