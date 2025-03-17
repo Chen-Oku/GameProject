@@ -6,12 +6,14 @@ using UnityEngine.AI;
 public class EnemySpawner : MonoBehaviour
 {
 
-    public GameObject tortuga; // Se asigna en el Inspector
+    public EnemyPool enemyPool; // Referencia al pool de enemigos
+    // public GameObject tortuga; // Se asigna en el Inspector
     public Transform[] spawnPoints; // Array de puntos de spawn
 
 
-    public float spawnTime;
-    public float spawnTimeRandom;
+    public float spawnTime; // Tiempo entre spawns
+
+    public float spawnTimeRandom; // Variabilidad en el tiempo entre spawns
 
     private float spawnTimer;
    // private NavMeshAgent nav;
@@ -21,7 +23,7 @@ public class EnemySpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (tortuga == null)
+        if (enemyPool == null)
         {
             Debug.LogError("No se ha asignado el prefab de la tortuga en el Inspector.");
         }
@@ -59,7 +61,7 @@ public class EnemySpawner : MonoBehaviour
         Transform spawnPoint = spawnPoints[spawnIndex];
 
         // Instanciar el enemigo en el punto de spawn seleccionado
-        Instantiate(tortuga, spawnPoint.position, spawnPoint.rotation);
+        Instantiate(enemyPool, spawnPoint.position, spawnPoint.rotation);
     } 
 
 
