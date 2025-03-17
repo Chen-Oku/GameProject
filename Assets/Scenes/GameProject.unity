@@ -450,7 +450,7 @@ Transform:
   m_GameObject: {fileID: 266174886}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.01, y: 11.25, z: -0.79}
+  m_LocalPosition: {x: 16.01, y: 10.25, z: 1.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -963,6 +963,37 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &522975280
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 522975281}
+  m_Layer: 0
+  m_Name: EnemySpawnPoint (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &522975281
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 522975280}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.7, y: 10.25, z: 19.07}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &547199962 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3228998136102310542, guid: e5f5dd49170a7c4438bcba0fd1e60bde,
@@ -1799,6 +1830,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 969414814}
   m_CullTransparentMesh: 1
+--- !u!1 &972929859
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 972929860}
+  m_Layer: 0
+  m_Name: EnemySpawnPoint (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &972929860
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 972929859}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -30.53, y: 10.25, z: -32.32}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1027967590
 GameObject:
   m_ObjectHideFlags: 0
@@ -2338,8 +2400,18 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5586806975287737137, guid: e5f5dd49170a7c4438bcba0fd1e60bde,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2112967651}
   m_SourcePrefab: {fileID: 100100000, guid: e5f5dd49170a7c4438bcba0fd1e60bde, type: 3}
+--- !u!1 &1121370061 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5586806975287737137, guid: e5f5dd49170a7c4438bcba0fd1e60bde,
+    type: 3}
+  m_PrefabInstance: {fileID: 1121370060}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1154576205
 GameObject:
   m_ObjectHideFlags: 0
@@ -2713,7 +2785,7 @@ Transform:
   m_GameObject: {fileID: 1238934995}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.04, y: -10.8, z: 44.41}
+  m_LocalPosition: {x: 16.1, y: 10.25, z: -46.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3616,6 +3688,22 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1121370060}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2112967651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1121370061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b29194160476e104989d5ab69fd4e881, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tortuga: {fileID: 5586806975287737137, guid: e5f5dd49170a7c4438bcba0fd1e60bde, type: 3}
+  spawnTime: 0
+  spawnTimeRandom: 0
+  target: {fileID: 0}
 --- !u!4 &2139303210 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4922708952426811484, guid: 7234320c4248a7747becf4891bd9a004,
@@ -10288,6 +10376,8 @@ SceneRoots:
   - {fileID: 1636715411}
   - {fileID: 266174887}
   - {fileID: 1238934996}
+  - {fileID: 972929860}
+  - {fileID: 522975281}
   - {fileID: 2064327522}
   - {fileID: 2006401563}
   - {fileID: 132374065}
