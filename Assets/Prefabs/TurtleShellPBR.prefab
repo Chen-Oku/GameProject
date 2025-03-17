@@ -323,7 +323,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 361.047, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0.979}
+  m_AnchoredPosition: {x: 0, y: 1}
   m_SizeDelta: {x: 2, y: 0.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &1460379546330246609
@@ -685,6 +685,7 @@ GameObject:
   - component: {fileID: 5811600166043715978}
   - component: {fileID: 6057301286673257150}
   - component: {fileID: 464063793821256082}
+  - component: {fileID: 4323290563640390743}
   m_Layer: 3
   m_Name: TurtleShellPBR
   m_TagString: Untagged
@@ -760,9 +761,9 @@ MonoBehaviour:
   walkPointRange: 0
   player: {fileID: 0}
   timeBetweenAttacks: 2
-  projectile: {fileID: 752235553783939729, guid: 0a1f935ee7f272f49a20f256037b3981,
-    type: 3}
-  spawnProjectile: {fileID: 2536725870127249727}
+  projectilePool: {fileID: 0}
+  projectileType: TurtleSkipe
+  spawnProjectile: {fileID: 8504953210387727772}
   sightRange: 8
   attackRange: 4
   playerInSightRange: 0
@@ -826,9 +827,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   healthUI: {fileID: 7411066615887632120}
-  slider: {fileID: 4750005369824728862}
   isAttackable: 1
-  healthBar: {fileID: 5586806975287737137}
+  healthBarUI: {fileID: 3228998136102310542}
+  slider: {fileID: 4750005369824728862}
+--- !u!114 &4323290563640390743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5586806975287737137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b29194160476e104989d5ab69fd4e881, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tortuga: {fileID: 5586806975287737137}
+  spawnPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  spawnTime: 2
+  spawnTimeRandom: 5
 --- !u!1 &5843604371029834769
 GameObject:
   m_ObjectHideFlags: 0
@@ -839,7 +860,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8504953210387727772}
   m_Layer: 3
-  m_Name: Spawn
+  m_Name: SpawnP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -854,7 +875,7 @@ Transform:
   m_GameObject: {fileID: 5843604371029834769}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.14, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1134,14 +1155,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7289207624428007759}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.03688756, y: 0.706144, z: 0.03688756, w: 0.706144}
-  m_LocalPosition: {x: -0, y: 0, z: -0.43}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5441486212331682413}
   m_Father: {fileID: 1176098964228121456}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &7289318818414667909
 GameObject:
   m_ObjectHideFlags: 0
@@ -1597,7 +1618,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8716330293284426752}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.014}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1605,8 +1626,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 2, y: 1}
+  m_AnchoredPosition: {x: 0.758, y: 0}
+  m_SizeDelta: {x: 1, y: 0.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3040035799141916897
 CanvasRenderer:
@@ -1636,7 +1657,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: new
+  m_text: 100
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1663,15 +1684,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.5
-  m_fontSizeBase: 0.5
+  m_fontSize: 0.2
+  m_fontSizeBase: 0.2
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 2
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
