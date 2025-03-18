@@ -2501,6 +2501,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: TurtleShellPBR
       objectReference: {fileID: 0}
+    - target: {fileID: 5586806975287737137, guid: e5f5dd49170a7c4438bcba0fd1e60bde,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057301286673257150, guid: e5f5dd49170a7c4438bcba0fd1e60bde,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7415269294487143770, guid: e5f5dd49170a7c4438bcba0fd1e60bde,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -2758,6 +2768,17 @@ PrefabInstance:
       propertyPath: healthUI
       value: 
       objectReference: {fileID: 793543278}
+    - target: {fileID: 1715780904834284340, guid: 4f8907444a7f3f74eb829d9f3984f19c,
+        type: 3}
+      propertyPath: EnergyBall
+      value: 
+      objectReference: {fileID: 6820988876660420229, guid: d89258f187d07b64186405004fc96ddc,
+        type: 3}
+    - target: {fileID: 1715780904834284340, guid: 4f8907444a7f3f74eb829d9f3984f19c,
+        type: 3}
+      propertyPath: spawnPoint
+      value: 
+      objectReference: {fileID: 1105319534}
     - target: {fileID: 1715780904834284340, guid: 4f8907444a7f3f74eb829d9f3984f19c,
         type: 3}
       propertyPath: projectileSpeed
