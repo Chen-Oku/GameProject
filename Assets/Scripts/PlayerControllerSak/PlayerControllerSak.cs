@@ -55,6 +55,9 @@ public class PlayerControllerSak : MonoBehaviour
 
         ApplyGravity();
         charController.Move(velocity * Time.deltaTime);
+
+        // Detectar interacción con la puerta
+        InteractWithDoor();
     }
 
     private void Move()
@@ -119,5 +122,27 @@ public class PlayerControllerSak : MonoBehaviour
         }
 
         isDashing = false;
+    }
+
+    private void InteractWithDoor()
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out hit, 2f))
+            {
+                Debug.Log("Raycast hit: " + hit.collider.name); // Log para verificar el objeto golpeado
+                OpenDoors door = hit.collider.GetComponent<OpenDoors>();
+                if (door != null)
+                {
+                    door.Interact();
+                    Debug.Log("Interacted with door: " + door.name); // Log para verificar la interacción
+                }
+            }
+            else
+            {
+                Debug.Log("Raycast no hit"); // Log para verificar que el Raycast no golpeó nada
+            }
+        }
     }
 }

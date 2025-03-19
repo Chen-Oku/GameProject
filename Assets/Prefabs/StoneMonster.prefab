@@ -310,7 +310,7 @@ MonoBehaviour:
   isAttackable: 1
   healthBarUI: {fileID: 4153305661482633663}
   slider: {fileID: 3483411102583498153}
-  scoreValue: 20
+  scoreValue: 30
 --- !u!114 &116678135519293433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -812,7 +812,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c0b8a7507654124b905d32df48848f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCamera: {fileID: 0}
 --- !u!1 &5788508466663155763
 GameObject:
   m_ObjectHideFlags: 0

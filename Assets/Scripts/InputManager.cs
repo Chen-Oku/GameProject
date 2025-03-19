@@ -6,7 +6,7 @@ public class InputManager : MonoBehaviour
 {
     //Utility
     private PlayerInput playerInput;
-    private InputAction moveAction, lookAction, jumpAction, walkAction, crouchAction, shootAction, aimAction;
+    private InputAction moveAction, lookAction, jumpAction, walkAction, crouchAction, shootAction, aimAction, interactAction;
 
     //Access
     public Vector2 MoveAxis { get; private set; }
@@ -15,6 +15,7 @@ public class InputManager : MonoBehaviour
     public bool Walk { get; private set; }
     public bool Crouch { get; private set; }
     public bool Aim { get; private set; }
+    public bool Interact { get; private set; }
 
     private void Awake()
     {
@@ -38,6 +39,7 @@ public class InputManager : MonoBehaviour
         Walk = walkAction.IsPressed();
         Crouch = crouchAction.IsPressed();
         Aim = aimAction.IsPressed();
+        Interact = interactAction.triggered;
     }
 
     #endregion
@@ -52,6 +54,7 @@ public class InputManager : MonoBehaviour
         walkAction = playerInput.actions["Walk"];
         crouchAction = playerInput.actions["Crouch"];
         aimAction = playerInput.actions["Aim"];
+        interactAction = playerInput.actions["Interact"];
     }
 
     #endregion
