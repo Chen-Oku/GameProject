@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnergyBall : MonoBehaviour
 {
     public float speed = 20f; // Velocidad del proyectil
-    public float damage = 10f; // Daño del proyectil
+    public float damage = 10f; // Daï¿½o del proyectil
     public float lifeTime = 5f; // Tiempo de vida del proyectil
 
     private Rigidbody rb;
@@ -15,13 +15,13 @@ public class EnergyBall : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         if (rb == null)
         {
-            Debug.LogError("No se encontró el componente Rigidbody en " + gameObject.name);
+            Debug.LogError("No se encontrï¿½ el componente Rigidbody en " + gameObject.name);
         }
 
         // Aplicar una velocidad inicial al proyectil
         rb.velocity = transform.forward * speed;
 
-        // Destruir el proyectil después de un tiempo para evitar que quede en la escena indefinidamente
+        // Destruir el proyectil despuï¿½s de un tiempo para evitar que quede en la escena indefinidamente
         Destroy(gameObject, lifeTime);
     }
 
@@ -39,10 +39,10 @@ public class EnergyBall : MonoBehaviour
             IEnemy enemy = other.GetComponent<IEnemy>();
             if (enemy != null)
             {
-                enemy.TakeDamage((int)damage); // Aplicar daño al enemigo
+                enemy.TakeDamage((int)damage); // Aplicar daÃ±o al enemigo
             }
 
-            // Destruir el proyectil después de impactar
+            // Destruir el proyectil despues de impactar
             Destroy(gameObject);
         }
     }

@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    public float attackDamage = 10f; // Daño del ataque
+    public GameObject EnergyBall;   // Prefab de la bola de energï¿½a
+    public Transform spawnPoint;    // Desde donde se dispara la bola de energÃ­a
+    public float projectileSpeed = 10f; // Velocidad de la bola de energï¿½a
+    public float attackDamage = 10f; // Daï¿½o del ataque
     public float attackRange = 1.5f; // Rango del ataque
     public LayerMask enemyLayer; // Capa de los enemigos
     public float attackCooldown = 1f; // Tiempo de espera entre ataques
@@ -17,15 +20,19 @@ public class PlayerAttack : MonoBehaviour
         animator = GetComponent<Animator>();
         if (animator == null)
         {
-            Debug.LogError("No se encontró el componente Animator en " + gameObject.name);
+            Debug.LogError("No se encontrÃ³ el componente Animator en " + gameObject.name);
         }
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && canAttack) // Botón izquierdo del ratón para atacar
+        if (Input.GetMouseButtonDown(0) && canAttack) // Botï¿½n izquierdo del ratï¿½n para atacar
         {
             StartCoroutine(Attack());
+        }
+        if (Input.GetMouseButtonDown(1))
+        {
+            /* shootEnergyBall(); */
         }
     }
     /*
@@ -33,14 +40,14 @@ public class PlayerAttack : MonoBehaviour
         {
             if (animator != null)
             {
-                // Reproducir la animación de ataque
+                // Reproducir la animaciï¿½n de ataque
                 animator.SetTrigger("isAttacking");
             }
 
             // Detectar enemigos en el rango de ataque
             Collider[] hitEnemies = Physics.OverlapSphere(transform.position + transform.forward * attackRange, attackRange, enemyLayer);
 
-            // Aplicar daño a los enemigos detectados
+            // Aplicar daï¿½o a los enemigos detectados
             foreach (Collider enemy in hitEnemies)
             {
                 EnemyHealth enemyScript = enemy.GetComponent<EnemyHealth>();
@@ -55,14 +62,14 @@ public class PlayerAttack : MonoBehaviour
     {
         if (animator != null)
         {
-            // Reproducir la animación de ataque
+            // Reproducir la animaciï¿½n de ataque
             animator.SetTrigger("isAttacking");
         }
 
         // Deshabilitar la capacidad de atacar
         canAttack = false;
 
-        // Esperar hasta que la animación de ataque haya terminado
+        // Esperar hasta que la animaciï¿½n de ataque haya terminado
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
 
         // Detectar enemigos en el rango de ataque
@@ -80,7 +87,7 @@ public class PlayerAttack : MonoBehaviour
         // Detectar enemigos en el rango de ataque
         Collider[] hitEnemies = Physics.OverlapSphere(transform.position + transform.forward * attackRange, attackRange, enemyLayer);
 
-        // Aplicar daño a los enemigos detectados
+        // Aplicar daï¿½o a los enemigos detectados
         foreach (Collider enemy in hitEnemies)
         {
             IEnemy enemyScript = enemy.GetComponent<IEnemy>();
@@ -92,10 +99,28 @@ public class PlayerAttack : MonoBehaviour
 
     }
 
-    // Dibujar el rango de ataque en la escena para depuración
+    // Dibujar el rango de ataque en la escena para depuraciï¿½n
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position + transform.forward * attackRange, attackRange);
+    }
+
+    void shootEnergyBall(){
+        if (EnergyBall == null || spawnPoint == null)
+        {
+            Debug.LogError("No se ha asignado el prefab de la bola de energÃ­a o el punto de spawn");
+            return;
+        }
+        
+        GameObject energyBall = Instantiate(EnergyBall, spawnPoint.position, spawnPoint.rotation);
+        Rigidbody rb = energyBall.GetComponent<Rigidbody>();
+
+        if (rb != null)
+        {
+            rb.velocity = transform.forward * projectileSpeed;
+        }
+
+        Destroy(energyBall, 5f); //Destruir el proyectil despuÃ©s de 5 segundos 
     }
 }
