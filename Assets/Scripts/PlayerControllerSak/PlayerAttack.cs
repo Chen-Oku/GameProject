@@ -32,7 +32,7 @@ public class PlayerAttack : MonoBehaviour
         }
         if (Input.GetMouseButtonDown(1))
         {
-            /* shootEnergyBall(); */
+            shootEnergyBall();
         }
     }
     /*
