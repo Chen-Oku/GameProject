@@ -2330,8 +2330,6 @@ Animation:
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
-<<<<<<< HEAD
-=======
 --- !u!1001 &1121370060
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2480,7 +2478,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e5f5dd49170a7c4438bcba0fd1e60bde, type: 3}
->>>>>>> 00e08ada6379288c3bb4508b81e4481205dc8e6a
 --- !u!1 &1154576205
 GameObject:
   m_ObjectHideFlags: 0
