@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -145,6 +146,8 @@ public class TurtleEnemyHealth : MonoBehaviour, IEnemy
 
         // Establecer el enemigo como no atacable
         isAttackable = false;
+
+        ScoreManager.instance.AddScore(scoreValue); // Otorgar puntaje al jugador
 
         isDead = true;
         Destroy(gameObject, 5f);

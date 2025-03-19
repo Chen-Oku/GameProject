@@ -8,17 +8,47 @@ public class OpenDoors : MonoBehaviour
 
     private bool isOpen = false;
 
+    private void Start()
+    {
+        if (doorAnimation == null)
+        {
+            doorAnimation = GetComponent<Animation>();
+            if (doorAnimation == null)
+            {
+                Debug.LogError("No se encontró el componente Animation en " + gameObject.name);
+            }
+        }
+    }
+
     public void Interact()
     {
         if (!isOpen)
         {
-            doorAnimation.CrossFade("OpenDoors",0.1f);
-            isOpen = true;
+            Open();
         }
         else
         {
+            Close();
+        }
+    }
+
+    public void Open()
+    {
+        if (!isOpen && doorAnimation != null)
+        {
+            doorAnimation.CrossFade("DoorOpen", 0.1f);
+            isOpen = true;
+            Debug.Log("Door opened."); // Log para verificar la apertura de la puerta
+        }
+    }
+
+    public void Close()
+    {
+        if (isOpen && doorAnimation != null)
+        {
             doorAnimation.Play("Close");
             isOpen = false;
+            Debug.Log("Door closed."); // Log para verificar el cierre de la puerta
         }
     }
 
@@ -38,4 +68,3 @@ public class OpenDoors : MonoBehaviour
         }
     }
 }
-

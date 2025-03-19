@@ -401,7 +401,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c0b8a7507654124b905d32df48848f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCamera: {fileID: 0}
 --- !u!1 &3945198431256081740
 GameObject:
   m_ObjectHideFlags: 0
@@ -687,7 +686,7 @@ GameObject:
   - component: {fileID: 464063793821256082}
   m_Layer: 3
   m_Name: TurtleShellPBR
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -753,7 +752,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   walkPointRange: 0
-  player: {fileID: 6384558227999906024, guid: 4f8907444a7f3f74eb829d9f3984f19c, type: 3}
   timeBetweenAttacks: 2
   projectileType: TurtleSkipe
   spawnProjectile: {fileID: 8504953210387727772}
@@ -823,6 +821,7 @@ MonoBehaviour:
   isAttackable: 1
   healthBarUI: {fileID: 3228998136102310542}
   slider: {fileID: 4750005369824728862}
+  scoreValue: 25
 --- !u!1 &5843604371029834769
 GameObject:
   m_ObjectHideFlags: 0
