@@ -306,10 +306,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  healthUI: {fileID: 0}
+  healthUI: {fileID: 426736520982602278}
   isAttackable: 1
   healthBarUI: {fileID: 4153305661482633663}
   slider: {fileID: 3483411102583498153}
+  scoreValue: 20
 --- !u!114 &116678135519293433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -330,15 +331,9 @@ MonoBehaviour:
   Player:
     serializedVersion: 2
     m_Bits: 64
-  waypoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   walkPointRange: 0
-  player: {fileID: 0}
+  player: {fileID: 6384558227999906024, guid: 4f8907444a7f3f74eb829d9f3984f19c, type: 3}
   timeBetweenAttacks: 4
-  projectilePool: {fileID: 0}
   projectileType: FireBallP
   spawnProjectile: {fileID: 6502003885965734129}
   sightRange: 12
@@ -495,7 +490,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6502003885965734129}
   m_Layer: 3
-  m_Name: Spawn
+  m_Name: SpawnP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -728,7 +723,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4153305661482633663}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -736,7 +731,7 @@ RectTransform:
   - {fileID: 7034627049167557323}
   - {fileID: 919439033627957442}
   m_Father: {fileID: 4788319935855200}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 1.3}

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -12,19 +13,19 @@ public class TurtlePlayerDetect : MonoBehaviour
     public bool isAttackable = true;
 
     [Header("Enemy Interaction")]
-    public NavMeshAgent agent; // Agente de navegaci�n
+    public NavMeshAgent agent; // Agente de navegación
     public LayerMask Terrain, Player; // Capas de terreno y jugador
 
     [Header("Patrol")]
-    public Transform[] waypoints; // Array de puntos de patrulla
-    private int currentWaypointIndex = 0; // �ndice del punto de patrulla actual
+    private Transform[] waypoints; // Array de puntos de patrulla
+    private int currentWaypointIndex = 0; // Índice del punto de patrulla actual
     public float walkPointRange; // Rango de caminata
 
     [Header("Attack Stats")]
-    public Transform player; // Jugador
+    private Transform player; // Jugador
     public float timeBetweenAttacks; // Tiempo entre ataques
     private bool alreadyAttacked; // Para que el enemigo no ataque constantemente
-    public MultiProjectilePool projectilePool; // Pool de proyectiles
+    private MultiProjectilePool projectilePool; // Pool de proyectiles
     public string projectileType; // Tipo de proyectil
     public Transform spawnProjectile; // Punto de spawn del proyectil
 
@@ -32,11 +33,20 @@ public class TurtlePlayerDetect : MonoBehaviour
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
 
+    public event Action OnDestroyed; // Evento que se dispara cuando el enemigo es destruido
+
     private void Awake()
     {
         player = GameObject.Find("PlayerSak").transform;
         agent = GetComponent<NavMeshAgent>();
         enemyHealth = GetComponent<TurtleEnemyHealth>(); // Obtener la referencia al script de salud
+
+        // Buscar el ProjectilePool en la escena
+        projectilePool = FindObjectOfType<MultiProjectilePool>();
+        if (projectilePool == null)
+        {
+            Debug.LogError("No se encontró un MultiProjectilePool en la escena.");
+        }
     }
 
     void Start()
@@ -46,9 +56,9 @@ public class TurtlePlayerDetect : MonoBehaviour
 
     void Update()
     {
-        if (enemyHealth.IsDead) return; // No realizar ninguna acci�n si el enemigo est� muerto
+        if (enemyHealth.IsDead) return; // No realizar ninguna acción si el enemigo está muerto
 
-        // Verificar si el jugador est� en el rango de visi�n y ataque
+        // Verificar si el jugador está en el rango de visión y ataque
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, Player);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, Player);
 
@@ -73,7 +83,7 @@ public class TurtlePlayerDetect : MonoBehaviour
         // Establecer el destino al siguiente punto de patrulla
         agent.SetDestination(waypoints[currentWaypointIndex].position);
 
-        // Actualizar el estado de animaci�n
+        // Actualizar el estado de animación
         animator.SetBool("isPatrolling", true);
         animator.SetBool("isChasing", false);
         animator.ResetTrigger("isAttacking1");
@@ -83,7 +93,7 @@ public class TurtlePlayerDetect : MonoBehaviour
     {
         if (waypoints.Length == 0) return;
 
-        // Incrementar el �ndice del punto de patrulla actual
+        // Incrementar el índice del punto de patrulla actual
         currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Length;
     }
 
@@ -91,7 +101,7 @@ public class TurtlePlayerDetect : MonoBehaviour
     {
         agent.SetDestination(player.position);
 
-        // Actualizar el estado de animaci�n
+        // Actualizar el estado de animación
         animator.SetBool("isPatrolling", false);
         animator.SetBool("isChasing", true);
         animator.ResetTrigger("isAttacking1");
@@ -104,7 +114,7 @@ public class TurtlePlayerDetect : MonoBehaviour
 
         // Asegurarse de que solo se rota en el eje Y para mirar al jugador
         Vector3 lookDirection = player.position - transform.position;
-        lookDirection.y = 0; // Mantener la rotaci�n solo en el eje Y
+        lookDirection.y = 0; // Mantener la rotación solo en el eje Y
         transform.rotation = Quaternion.LookRotation(lookDirection);
 
         if (!alreadyAttacked)
@@ -140,6 +150,17 @@ public class TurtlePlayerDetect : MonoBehaviour
             // Reproducir la animación de ataque
             animator.SetTrigger("isAttacking1");
         }
+    }
+
+    public void SetWaypoints(Transform[] waypoints)
+    {
+        this.waypoints = waypoints;
+    }
+
+    private void OnDestroy()
+    {
+        // Disparar el evento OnDestroyed cuando el enemigo sea destruido
+        OnDestroyed?.Invoke();
     }
 
     private void ResetAttack()

@@ -16,6 +16,8 @@ public class TurtleEnemyHealth : MonoBehaviour, IEnemy
     public GameObject healthBarUI;
     public Slider slider;
 
+    public int scoreValue = 25; // Valor de puntaje del enemigo
+
     Vector3 startPos;
 
     void Start()
@@ -146,6 +148,10 @@ public class TurtleEnemyHealth : MonoBehaviour, IEnemy
 
         isDead = true;
         Destroy(gameObject, 5f);
+    }
+    public int GetScoreValue()
+    {
+        return scoreValue;
     }
 
     public void RefreshUI()

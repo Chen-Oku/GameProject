@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -16,15 +17,15 @@ public class FireMPlayerDetect : MonoBehaviour
     public LayerMask Terrain, Player; // Capas de terreno y jugador
 
     [Header("Patrol")]
-    public Transform[] waypoints; // Array de puntos de patrulla
+    private Transform[] waypoints; // Array de puntos de patrulla
     private int currentWaypointIndex = 0; // Índice del punto de patrulla actual
     public float walkPointRange; // Rango de caminata
 
     [Header("Attack Stats")]
     public Transform player; // Jugador
     public float timeBetweenAttacks; // Tiempo entre ataques
-    bool alreadyAttacked; // Para que el enemigo no ataque constantemente
-    public MultiProjectilePool projectilePool; // Pool de proyectiles
+    private bool alreadyAttacked; // Para que el enemigo no ataque constantemente
+    private MultiProjectilePool projectilePool; // Pool de proyectiles
     public string projectileType; // Tipo de proyectil
     public Transform spawnProjectile; // Punto de spawn del proyectil
 
@@ -32,11 +33,20 @@ public class FireMPlayerDetect : MonoBehaviour
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
 
+    public event Action OnDestroyed; // Evento que se dispara cuando el enemigo es destruido
+
     private void Awake()
     {
         player = GameObject.Find("PlayerSak").transform;
         agent = GetComponent<NavMeshAgent>();
         enemyHealth = GetComponent<FireMEnemyHealth>(); // Obtener la referencia al script de salud
+
+        // Buscar el ProjectilePool en la escena
+        projectilePool = FindObjectOfType<MultiProjectilePool>();
+        if (projectilePool == null)
+        {
+            Debug.LogError("No se encontró un MultiProjectilePool en la escena.");
+        }
     }
 
     void Start()
@@ -146,6 +156,16 @@ public class FireMPlayerDetect : MonoBehaviour
             // Reproducir la animación de ataque
             animationComponent.CrossFade("Anim_Attack", 0.2f);
         }
+    }
+    public void SetWaypoints(Transform[] waypoints)
+    {
+        this.waypoints = waypoints;
+    }
+
+    private void OnDestroy()
+    {
+        // Disparar el evento OnDestroyed cuando el enemigo sea destruido
+        OnDestroyed?.Invoke();
     }
 
     private void ResetAttack()

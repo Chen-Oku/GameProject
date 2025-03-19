@@ -1,72 +1,101 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemySpawner : MonoBehaviour
 {
+    [System.Serializable]
+    public class EnemyType
+    {
+        public GameObject prefab; // Prefab del enemigo
+    }
 
-    public EnemyPool enemyPool; // Referencia al pool de enemigos
-    // public GameObject tortuga; // Se asigna en el Inspector
+    public List<EnemyType> enemyTypes; // Lista de tipos de enemigos
     public Transform[] spawnPoints; // Array de puntos de spawn
-
+    public Transform[] waypoints; // Array de puntos de patrulla
 
     public float spawnTime; // Tiempo entre spawns
-
     public float spawnTimeRandom; // Variabilidad en el tiempo entre spawns
+    public int maxEnemies; // Número máximo de enemigos permitidos al mismo tiempo
 
     private float spawnTimer;
-   // private NavMeshAgent nav;
-    //public Transform target;
-    private Vector3 location;
+    private int currentEnemyCount; // Contador de enemigos activos
 
-    // Start is called before the first frame update
     void Start()
     {
-        if (enemyPool == null)
+        if (enemyTypes.Count == 0)
         {
-            Debug.LogError("No se ha asignado el prefab de la tortuga en el Inspector.");
+            Debug.LogError("No se han asignado tipos de enemigos en el Inspector.");
         }
         if (spawnPoints.Length == 0)
         {
             Debug.LogError("No se han asignado puntos de spawn en el Inspector.");
         }
+        if (waypoints.Length == 0)
+        {
+            Debug.LogError("No se han asignado puntos de patrulla en el Inspector.");
+        }
 
         ResetSpawnTimer();
     }
 
-    // Update is called once per frame
     void Update()
     {
         spawnTimer -= Time.deltaTime;
-       // target = GameObject.FindGameObjectWithTag("PlayerSak").transform;
-        // if (spawnTimer <= 0.0f)
-        // {
-        //     Instantiate(tortuga, location, Quaternion.identity);
 
-            //ResetSpawnTimer();
-        if (spawnTimer <= 0.0f)
+        if (spawnTimer <= 0.0f && currentEnemyCount < maxEnemies)
         {
-           SpawnEnemy();
-           ResetSpawnTimer();
+            SpawnEnemy();
+            ResetSpawnTimer();
         }
     }
 
     void SpawnEnemy()
     {
-        if (spawnPoints.Length == 0) return;
+        if (spawnPoints.Length == 0 || enemyTypes.Count == 0) return;
 
         // Seleccionar un punto de spawn aleatorio
         int spawnIndex = Random.Range(0, spawnPoints.Length);
         Transform spawnPoint = spawnPoints[spawnIndex];
 
-        // Instanciar el enemigo en el punto de spawn seleccionado
-        Instantiate(enemyPool, spawnPoint.position, spawnPoint.rotation);
-    } 
+        // Seleccionar un tipo de enemigo aleatorio
+        int enemyIndex = Random.Range(0, enemyTypes.Count);
+        GameObject enemyPrefab = enemyTypes[enemyIndex].prefab;
 
+        // Instanciar el enemigo en el punto de spawn seleccionado
+        GameObject enemy = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+
+        Debug.Log("Enemigo instanciado: " + enemy.name + " en " + spawnPoint.position);
+
+        // Incrementar el contador de enemigos activos
+        currentEnemyCount++;
+
+        // Verificar el tipo de enemigo y asignar los waypoints y el evento OnDestroyed
+        TurtlePlayerDetect turtleEnemy = enemy.GetComponent<TurtlePlayerDetect>();
+        if (turtleEnemy != null)
+        {
+            turtleEnemy.OnDestroyed += HandleEnemyDestroyed;
+            turtleEnemy.SetWaypoints(waypoints); // Asignar los puntos de patrulla correctos
+            return;
+        }
+
+        FireMPlayerDetect fireEnemy = enemy.GetComponent<FireMPlayerDetect>();
+        if (fireEnemy != null)
+        {
+            fireEnemy.OnDestroyed += HandleEnemyDestroyed;
+            fireEnemy.SetWaypoints(waypoints); // Asignar los puntos de patrulla correctos
+            return;
+        }
+    }
 
     void ResetSpawnTimer()
     {
-        spawnTimer = (float)(spawnTime + Random.Range(0, spawnTimer * 100) / 100.0);
+        spawnTimer = spawnTime + Random.Range(0f, spawnTimeRandom);
+    }
+
+    void HandleEnemyDestroyed()
+    {
+        // Decrementar el contador de enemigos activos
+        currentEnemyCount--;
     }
 }

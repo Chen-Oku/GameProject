@@ -6,4 +6,6 @@ public interface IEnemy
 {
     void TakeDamage(float damage);
     bool IsDead { get; }
+    int GetScoreValue(); // Método para obtener el valor de puntaje del enemigo
+
 }

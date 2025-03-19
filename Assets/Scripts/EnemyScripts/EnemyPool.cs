@@ -3,49 +3,75 @@ using UnityEngine;
 
 public class EnemyPool : MonoBehaviour
 {
-    [SerializeField]
-
-    public class EnemyPoolItem
+    [System.Serializable]
+    public class EnemyType
     {
-        public string EnemyType;
-        public GameObject enemyPrefab; // Prefab del enemigo
-        public int poolSize = 10; // Tamaño del pool
+        public GameObject prefab; // Prefab del enemigo
+        public int initialSize; // Tamaño inicial del pool
     }
-    public GameObject enemyPrefab; // Prefab del enemigo
-    public int poolSize = 10; // Tamaño del pool
 
-    private Queue<GameObject> pool;
+    [SerializeField] private List<EnemyType> enemyTypes; // Lista de tipos de enemigos
+    private Dictionary<GameObject, Queue<GameObject>> poolDictionary; // Pool para cada tipo de enemigo
 
-    void Start()
+    private void Awake()
     {
-        pool = new Queue<GameObject>();
+        poolDictionary = new Dictionary<GameObject, Queue<GameObject>>();
 
-        for (int i = 0; i < poolSize; i++)
+        // Inicializa el pool para cada tipo de enemigo
+        foreach (EnemyType enemyType in enemyTypes)
         {
-            GameObject enemy = Instantiate(enemyPrefab);
-            enemy.SetActive(false);
-            pool.Enqueue(enemy);
+            Queue<GameObject> enemyQueue = new Queue<GameObject>();
+
+            for (int i = 0; i < enemyType.initialSize; i++)
+            {
+                GameObject enemyInstance = Instantiate(enemyType.prefab);
+                enemyInstance.SetActive(false);
+                enemyQueue.Enqueue(enemyInstance);
+            }
+
+            poolDictionary.Add(enemyType.prefab, enemyQueue);
         }
     }
 
-    public GameObject GetEnemy()
+    // Método para obtener un enemigo del pool
+    public GameObject GetEnemy(GameObject enemyPrefab)
     {
-        if (pool.Count > 0)
+        if (!poolDictionary.ContainsKey(enemyPrefab))
         {
-            GameObject enemy = pool.Dequeue();
+            Debug.LogWarning($"No existe el tipo de enemigo para el prefab: {enemyPrefab.name}");
+            return null;
+        }
+
+        Queue<GameObject> enemyQueue = poolDictionary[enemyPrefab];
+
+        if (enemyQueue.Count > 0)
+        {
+            GameObject enemy = enemyQueue.Dequeue();
             enemy.SetActive(true);
             return enemy;
         }
         else
         {
-            GameObject enemy = Instantiate(enemyPrefab);
-            return enemy;
+            Debug.LogWarning($"No hay más enemigos disponibles en el pool para el prefab: {enemyPrefab.name}");
+            return null;
         }
     }
 
-    public void ReturnEnemy(GameObject enemy)
+    // Método para devolver un enemigo al pool
+    public void ReturnEnemy(GameObject enemyPrefab, GameObject enemy)
     {
+        if (!poolDictionary.ContainsKey(enemyPrefab))
+        {
+            Debug.LogWarning($"No existe el tipo de enemigo para el prefab: {enemyPrefab.name}");
+            return;
+        }
+
         enemy.SetActive(false);
-        pool.Enqueue(enemy);
+        poolDictionary[enemyPrefab].Enqueue(enemy);
     }
 }
+
+
+
+
+
