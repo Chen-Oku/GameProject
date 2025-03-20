@@ -680,10 +680,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1176098964228121456}
   - component: {fileID: 6347885572906674890}
-  - component: {fileID: 2784457820428788742}
+  - component: {fileID: -6697877237787273602}
+  - component: {fileID: -664565900203168649}
   - component: {fileID: 5811600166043715978}
   - component: {fileID: 6057301286673257150}
-  - component: {fileID: 464063793821256082}
+  - component: {fileID: -827009588816583923}
   m_Layer: 3
   m_Name: TurtleShellPBR
   m_TagString: Enemy
@@ -700,7 +701,7 @@ Transform:
   m_GameObject: {fileID: 5586806975287737137}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 5, z: -30}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -731,7 +732,23 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &2784457820428788742
+--- !u!114 &-6697877237787273602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5586806975287737137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6806810e9ed20a4baf835ae316f2038, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minorHealthBuffPrefab: {fileID: 2660103900133598615, guid: d5dbbd872779d2a4980b6781f47eabad,
+    type: 3}
+  majorHealthBuffPrefab: {fileID: 3802517537732812966, guid: 9b85df5eecd18a341bc279ea09b247ae,
+    type: 3}
+--- !u!114 &-664565900203168649
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -769,7 +786,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 3
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -804,7 +821,7 @@ CapsuleCollider:
   m_Height: 2.5
   m_Direction: 1
   m_Center: {x: 0, y: 0.5, z: 0}
---- !u!114 &464063793821256082
+--- !u!114 &-827009588816583923
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

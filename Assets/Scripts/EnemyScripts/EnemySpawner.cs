@@ -25,15 +25,15 @@ public class EnemySpawner : MonoBehaviour
     {
         if (enemyTypes.Count == 0)
         {
-            Debug.LogError("No se han asignado tipos de enemigos en el Inspector.");
+            
         }
         if (spawnPoints.Length == 0)
         {
-            Debug.LogError("No se han asignado puntos de spawn en el Inspector.");
+            
         }
         if (waypoints.Length == 0)
         {
-            Debug.LogError("No se han asignado puntos de patrulla en el Inspector.");
+            
         }
 
         ResetSpawnTimer();
@@ -64,8 +64,7 @@ public class EnemySpawner : MonoBehaviour
 
         // Instanciar el enemigo en el punto de spawn seleccionado
         GameObject enemy = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
-
-        Debug.Log("Enemigo instanciado: " + enemy.name + " en " + spawnPoint.position);
+        
 
         // Incrementar el contador de enemigos activos
         currentEnemyCount++;

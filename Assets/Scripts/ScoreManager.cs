@@ -13,7 +13,7 @@ public class ScoreManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject); // Asegurarse de que el ScoreManager no se destruya al cargar una nueva escena
+           // DontDestroyOnLoad(gameObject); // Asegurarse de que el ScoreManager no se destruya al cargar una nueva escena
         }
         else
         {
