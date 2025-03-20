@@ -25,16 +25,19 @@ public class CameraControllerSak : MonoBehaviour
 
     void LateUpdate()
     {
-        x += Input.GetAxis("Mouse X") * sensitivity;
-        y -= Input.GetAxis("Mouse Y") * sensitivity;
-        y = ClampAngle(y, yMinLimit, yMaxLimit);
+        if (!PauseMenu.isPaused)
+        {
+            x += Input.GetAxis("Mouse X") * sensitivity;
+            y -= Input.GetAxis("Mouse Y") * sensitivity;
+            y = ClampAngle(y, yMinLimit, yMaxLimit);
 
-        Quaternion rotation = Quaternion.Euler(y, x, 0);
-        transform.position = player.position + rotation * offset;
-        transform.rotation = rotation;
+            Quaternion rotation = Quaternion.Euler(y, x, 0);
+            transform.position = player.position + rotation * offset;
+            transform.rotation = rotation;
 
-        // Actualizar la rotación del jugador para que mire en la misma dirección que la cámara
-        player.rotation = Quaternion.Euler(0, x, 0);
+            // Actualizar la rotación del jugador para que mire en la misma dirección que la cámara
+            player.rotation = Quaternion.Euler(0, x, 0);
+        }
     }
 
     private float ClampAngle(float angle, float min, float max)

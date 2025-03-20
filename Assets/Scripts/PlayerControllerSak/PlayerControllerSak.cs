@@ -33,31 +33,35 @@ public class PlayerControllerSak : MonoBehaviour
 
     void Update()
     {
-        isGrounded = charController.isGrounded;
-        if (isGrounded && velocity.y < 0)
+        if (!PauseMenu.isPaused)
         {
-            velocity.y = -2f;
-            canDoubleJump = true;
-            coyoteTimeCounter = coyoteTime; // Reiniciar el contador de tiempo de coyote
+
+            isGrounded = charController.isGrounded;
+            if (isGrounded && velocity.y < 0)
+            {
+                velocity.y = -2f;
+                canDoubleJump = true;
+                coyoteTimeCounter = coyoteTime; // Reiniciar el contador de tiempo de coyote
+            }
+            else
+            {
+                coyoteTimeCounter -= Time.deltaTime; // Disminuir el contador de tiempo de coyote
+            }
+
+            if (!isDashing)
+            {
+                Move();
+                Jump();
+            }
+
+            Dash(); // Permitir dash incluso si el personaje está corriendo
+
+            ApplyGravity();
+            charController.Move(velocity * Time.deltaTime);
+
+            // Detectar interacción con la puerta
+            InteractWithDoor();
         }
-        else
-        {
-            coyoteTimeCounter -= Time.deltaTime; // Disminuir el contador de tiempo de coyote
-        }
-
-        if (!isDashing)
-        {
-            Move();
-            Jump();
-        }
-
-        Dash(); // Permitir dash incluso si el personaje está corriendo
-
-        ApplyGravity();
-        charController.Move(velocity * Time.deltaTime);
-
-        // Detectar interacción con la puerta
-        InteractWithDoor();
     }
 
     private void Move()
