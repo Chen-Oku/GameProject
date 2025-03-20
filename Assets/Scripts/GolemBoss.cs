@@ -5,7 +5,6 @@ using UnityEngine.AI;
 public class GolemBoss : MonoBehaviour
 {
     public Transform[] patrolPoints;
-    public float patrolSpeed;
     public float detectionRange;
     public float attackRange;
     public float attackCooldown;
@@ -59,7 +58,6 @@ public class GolemBoss : MonoBehaviour
 
             while (Vector3.Distance(transform.position, targetPoint.position) > 0.1f)
             {
-                transform.position = Vector3.MoveTowards(transform.position, targetPoint.position, patrolSpeed * Time.deltaTime);
                 yield return null;
             }
 
@@ -106,17 +104,16 @@ public class GolemBoss : MonoBehaviour
     {
         // Lógica para el ataque de un solo puño
         animator.SetTrigger("SinglePunch");
-        DealDamageToPlayer();
     }
 
     private void PerformDoublePunchAttack()
     {
         // Lógica para el ataque de dos puños
         animator.SetTrigger("DoublePunch");
-        DealDamageToPlayer();
     }
 
-    private void DealDamageToPlayer()
+    // Método llamado por el evento de animación para aplicar daño al jugador
+    public void ApplyDamage()
     {
         if (Vector3.Distance(transform.position, player.position) <= attackRange)
         {
@@ -189,8 +186,10 @@ public class GolemBoss : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
+        Gizmos.DrawWireSphere(transform.position + transform.forward * attackRange, attackRange);
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, detectionRange);
     }
 }
+
+

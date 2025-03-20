@@ -15,14 +15,14 @@ public class PlayerControllerSak : MonoBehaviour
     public float dashDuration = 0.2f;
     public float coyoteTime = 0.2f; // Tiempo de coyote
 
-    private float turnSmoothVelocity;
+    //private float turnSmoothVelocity;
     private Vector3 velocity;
     private bool isGrounded;
     private bool canDoubleJump;
     private bool isDashing;
     private float dashTime;
     private float coyoteTimeCounter; // Contador de tiempo de coyote
-
+       
     private PlayerAttack playerAttack; // Referencia al script PlayerAttack
 
     void Start()
