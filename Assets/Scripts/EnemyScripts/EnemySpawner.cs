@@ -20,7 +20,6 @@ public class EnemySpawner : MonoBehaviour
 
     private float spawnTimer;
     private int currentEnemyCount; // Contador de enemigos activos
-    private bool gameStarted = false; // Variable para controlar si el juego ha comenzado
 
     void Start()
     {
@@ -42,8 +41,6 @@ public class EnemySpawner : MonoBehaviour
 
     void Update()
     {
-        if (!gameStarted) return; // No generar enemigos si el juego no ha comenzado
-
         spawnTimer -= Time.deltaTime;
 
         if (spawnTimer <= 0.0f && currentEnemyCount < maxEnemies)
@@ -99,11 +96,5 @@ public class EnemySpawner : MonoBehaviour
     {
         // Decrementar el contador de enemigos activos
         currentEnemyCount--;
-    }
-
-    // Método para iniciar el juego y permitir la generación de enemigos
-    public void StartGame()
-    {
-        gameStarted = true;
     }
 }

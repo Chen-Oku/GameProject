@@ -25,8 +25,6 @@ public class TutorialTurtle : MonoBehaviour
 
     public event Action OnDestroyed; // Evento que se dispara cuando el enemigo es destruido
 
-    private bool gameStarted = false; // Variable para controlar si el juego ha comenzado
-
     private void Awake()
     {
         player = GameObject.Find("PlayerSak").transform;
@@ -100,12 +98,6 @@ public class TutorialTurtle : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, stareRange);
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, sightRange);
-    }
-
-    // Método para iniciar el juego y permitir que el TutorialTurtle comience a actuar
-    public void StartGame()
-    {
-        gameStarted = true;
     }
 }
 

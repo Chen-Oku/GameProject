@@ -26,16 +26,13 @@ public class PlayerAttack : MonoBehaviour
 
     void Update()
     {
-        if (!PauseMenu.isPaused)
+        if (Input.GetMouseButtonDown(0) && canAttack) // Bot�n izquierdo del rat�n para atacar
         {
-            if (Input.GetMouseButtonDown(0) && canAttack) // Bot�n izquierdo del rat�n para atacar
-            {
-                StartCoroutine(Attack());
-            }
-            if (Input.GetMouseButtonDown(1))
-            {
-                ShootEnergyBall();
-            }
+            StartCoroutine(Attack());
+        }
+        if (Input.GetMouseButtonDown(1))
+        {
+            shootEnergyBall();
         }
     }
     /*
@@ -109,7 +106,7 @@ public class PlayerAttack : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position + transform.forward * attackRange, attackRange);
     }
 
-    void ShootEnergyBall(){
+    void shootEnergyBall(){
         if (EnergyBall == null || spawnPoint == null)
         {
             Debug.LogError("No se ha asignado el prefab de la bola de energía o el punto de spawn");
