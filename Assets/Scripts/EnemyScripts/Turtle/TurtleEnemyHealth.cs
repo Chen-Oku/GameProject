@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class TurtleEnemyHealth : MonoBehaviour, IEnemy
 {
-    public float maxHealth = 100f; // Salud máxima del enemigo
+    public float maxHealth = 100f; // Salud mï¿½xima del enemigo
     private float currentHealth; // Salud actual del enemigo
     private Animator animator; // Componente Animator
     public TextMeshProUGUI healthUI;
@@ -28,16 +28,16 @@ public class TurtleEnemyHealth : MonoBehaviour, IEnemy
         }
         else
         {
-            Debug.LogError("No se encontró el componente TextMeshProUGUI en " + gameObject.name);
+            Debug.LogError("No se encontrï¿½ el componente TextMeshProUGUI en " + gameObject.name);
         }
 
         animator = GetComponent<Animator>(); // Obtener el componente Animator
         if (animator == null)
         {
-            Debug.LogError("No se encontró el componente Animator en " + gameObject.name);
+            Debug.LogError("No se encontrï¿½ el componente Animator en " + gameObject.name);
         }
 
-        // Asegurarse de que la barra de salud esté oculta al inicio
+        // Asegurarse de que la barra de salud estï¿½ oculta al inicio
         if (healthBarUI != null)
         {
             healthBarUI.SetActive(false);
@@ -71,16 +71,15 @@ public class TurtleEnemyHealth : MonoBehaviour, IEnemy
         return currentHealth / maxHealth;
     }
 
-    // Método para recibir daño
+    // Mï¿½todo para recibir daï¿½o
     public void TakeDamage(float damage)
     {
-        if (isDead) return; // No recibir daño si ya está muerto
+        if (isDead) return; // No recibir daï¿½o si ya estï¿½ muerto
 
         currentHealth -= damage; // Reducir la salud actual
         if (currentHealth < 0) currentHealth = 0; // Asegurarse de que la salud no sea negativa
 
-        // Imprimir mensaje de depuración
-        Debug.Log("Enemigo recibió daño: " + damage + ". Salud actual: " + currentHealth);
+        // Imprimir mensaje de depuraciï¿½n
 
         // Actualizar la UI de salud
         if (healthUI != null)
@@ -88,7 +87,7 @@ public class TurtleEnemyHealth : MonoBehaviour, IEnemy
             healthUI.text = currentHealth.ToString();
         }
 
-        // Activar la animación de recibir daño
+        // Activar la animaciï¿½n de recibir daï¿½o
         if (animator != null)
         {
             animator.SetTrigger("GetHit");
@@ -110,20 +109,20 @@ public class TurtleEnemyHealth : MonoBehaviour, IEnemy
         }
     }
 
-    // Corrutina para desactivar el Trigger de GetHit después de un breve período de tiempo
+    // Corrutina para desactivar el Trigger de GetHit despuï¿½s de un breve perï¿½odo de tiempo
     IEnumerator ResetHitTrigger()
     {
-        yield return new WaitForSeconds(0.5f); // Ajusta el tiempo según sea necesario
+        yield return new WaitForSeconds(0.5f); // Ajusta el tiempo segï¿½n sea necesario
         if (animator != null)
         {
             animator.ResetTrigger("GetHit");
         }
     }
 
-    // Corrutina para ocultar la barra de salud después de un retraso
+    // Corrutina para ocultar la barra de salud despuï¿½s de un retraso
     IEnumerator HideHealthBar()
     {
-        yield return new WaitForSeconds(2f); // Ajusta el tiempo según sea necesario
+        yield return new WaitForSeconds(2f); // Ajusta el tiempo segï¿½n sea necesario
         if (healthBarUI != null)
         {
             healthBarUI.SetActive(false);
@@ -132,13 +131,13 @@ public class TurtleEnemyHealth : MonoBehaviour, IEnemy
 
     public bool IsDead => isDead;
 
-    // Método para manejar la muerte del enemigo
+    // Mï¿½todo para manejar la muerte del enemigo
     void Die()
     {
         if (isDead) return;
         slider.value = CalculateCurrentHealth();
 
-        // Activar la animación de muerte
+        // Activar la animaciï¿½n de muerte
         if (animator != null)
         {
             animator.SetTrigger("Die");

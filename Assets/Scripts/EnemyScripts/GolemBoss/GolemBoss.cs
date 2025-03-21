@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class GolemBoss : MonoBehaviour
+public class GolemBoss : MonoBehaviour, IEnemy
 {
     public Transform[] patrolPoints;
     public float detectionRange;
@@ -22,11 +22,31 @@ public class GolemBoss : MonoBehaviour
     private bool alreadyAttacked;
     private Animator animator;
     private NavMeshAgent agent;
+    public event System.Action OnDestroyed;
 
     public int scoreValue = 25; // Valor de puntaje del enemigo
 
     void Start()
     {
+        // Buscar automáticamente los puntos de patrulla con la etiqueta "BossWayPoint"
+        GameObject[] wayPointObjects = GameObject.FindGameObjectsWithTag("BossWayPoint");
+        patrolPoints = new Transform[wayPointObjects.Length];
+
+        for (int i = 0; i < wayPointObjects.Length; i++)
+        {
+            patrolPoints[i] = wayPointObjects[i].transform;
+        }
+        // Buscar automáticamente el objeto puerta con la etiqueta "BossDoor"
+        GameObject doorObject = GameObject.FindGameObjectWithTag("BossDoor");
+        if (doorObject != null)
+        {
+            door = doorObject;
+        }
+        else
+        {
+            Debug.LogError("No se encontró ningún objeto con la etiqueta 'BossDoor'.");
+        }
+
         currentPatrolIndex = 0;
         player = GameObject.FindGameObjectWithTag("Player").transform;
         animator = GetComponent<Animator>();
@@ -103,14 +123,23 @@ public class GolemBoss : MonoBehaviour
 
     private void PerformSinglePunchAttack()
     {
-        // L�gica para el ataque de un solo pu�o
-        animator.SetTrigger("SinglePunch");
+        if(animator != null)
+        {
+            // L�gica para el ataque de un solo pu�o
+            animator.SetTrigger("SinglePunch");
+            StartCoroutine(ResetAttackTrigger());
+        }
+
     }
 
     private void PerformDoublePunchAttack()
     {
-        // L�gica para el ataque de dos pu�os
-        animator.SetTrigger("DoublePunch");
+        if(animator != null)
+        {
+            // L�gica para el ataque de dos pu�os
+            animator.SetTrigger("DoublePunch");
+            StartCoroutine(ResetAttackTrigger());
+        }
     }
 
     // M�todo llamado por el evento de animaci�n para aplicar da�o al jugador
@@ -128,26 +157,35 @@ public class GolemBoss : MonoBehaviour
             }
         }
     }
+        IEnumerator ResetAttackTrigger()
+    {
+        yield return new WaitForSeconds(0.5f); // Ajusta el tiempo seg�n sea necesario
+        if (animator != null)
+        {
+            animator.ResetTrigger("SinglePunch");
+            animator.SetTrigger("DoublePunch");
+        }
+    }
 
     private void ResetAttack()
     {
         alreadyAttacked = false;
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         if (isDead) return;
 
-        currentHealth -= damage;
-        if (currentHealth <= 0)
-        {
-            Die();
-        }
+        currentHealth -= (int) damage;
         // Activar la animaci�n de recibir da�o
         if (animator != null)
         {
             animator.SetTrigger("GetHit");
             StartCoroutine(ResetHitTrigger());
+        }
+        if (currentHealth <= 0)
+        {
+            Die();
         }
     }
 
@@ -159,11 +197,17 @@ public class GolemBoss : MonoBehaviour
             animator.ResetTrigger("GetHit");
         }
     }
+    public bool IsDead => isDead;
 
     void Die()
     {
         isDead = true;
-        animator.SetTrigger("Die");
+
+        // Activar la animaci�n de muerte
+        if (animator != null)
+        {
+            animator.SetTrigger("Die");
+        }
         ScoreManager.instance.AddScore(scoreValue);
         OpenDoors openDoors = door.GetComponent<OpenDoors>();
         if (openDoors != null)
@@ -175,6 +219,10 @@ public class GolemBoss : MonoBehaviour
             Debug.LogError("El componente OpenDoors no se encuentra en el objeto door.");
         }
 
+        isDead = true;
+        OnDestroyed?.Invoke();
+        Destroy(gameObject, 5f);
+
         StartCoroutine(Respawn());
     }
 
@@ -185,6 +233,11 @@ public class GolemBoss : MonoBehaviour
         currentHealth = maxHealth;
         transform.position = bossSpawnPoint.position;
         StartCoroutine(Patrol());
+    }
+
+     public int GetScoreValue()
+    {
+        return scoreValue;
     }
 
     private void OnDrawGizmosSelected()

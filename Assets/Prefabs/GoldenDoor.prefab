@@ -771,7 +771,7 @@ GameObject:
   - component: {fileID: 7967322447446824297}
   m_Layer: 0
   m_Name: GoldenDoor
-  m_TagString: Untagged
+  m_TagString: BossDoor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -810,7 +810,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d140747192dfa24fa42115fc657fe96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  doorAnimation: {fileID: 0}
+  doorAnimator: {fileID: 7967322447446824297}
 --- !u!65 &694520444573775480
 BoxCollider:
   m_ObjectHideFlags: 0
