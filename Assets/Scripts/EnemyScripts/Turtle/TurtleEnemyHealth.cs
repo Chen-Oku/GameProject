@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class TurtleEnemyHealth : MonoBehaviour, IEnemy
 {
-    public int maxHealth = 100; // Salud máxima del enemigo
-    private int currentHealth; // Salud actual del enemigo
+    public float maxHealth = 100f; // Salud máxima del enemigo
+    private float currentHealth; // Salud actual del enemigo
     private Animator animator; // Componente Animator
     public TextMeshProUGUI healthUI;
     public bool isAttackable = true;
@@ -76,7 +76,7 @@ public class TurtleEnemyHealth : MonoBehaviour, IEnemy
     {
         if (isDead) return; // No recibir daño si ya está muerto
 
-        currentHealth -= (int)damage; // Reducir la salud actual
+        currentHealth -= damage; // Reducir la salud actual
         if (currentHealth < 0) currentHealth = 0; // Asegurarse de que la salud no sea negativa
 
         // Imprimir mensaje de depuración

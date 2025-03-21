@@ -5,7 +5,7 @@ public class StoryScreen : MonoBehaviour
 {
     private Camera mainCamera; // Referencia a la cámara principal
     public GameObject storyScreen; // Referencia a la pantalla de historia
-    public Transform playerSpawn; // Referencia al punto de spawn del jugador
+    //public Transform playerSpawn; // Referencia al punto de spawn del jugador
     public GameObject player; // Referencia al jugador
     public EnemySpawner enemySpawner; // Referencia al EnemySpawner
     //public GolemBoss golemBoss; // Referencia al GolemBoss
@@ -36,11 +36,11 @@ public class StoryScreen : MonoBehaviour
         // Activar el jugador
         player.SetActive(true);
         // Mover al jugador al punto de spawn
-        player.transform.position = playerSpawn.position;
-        player.transform.rotation = playerSpawn.rotation;
-      /*  // Iniciar la generación de enemigos
+       /* player.transform.position = playerSpawn.position;
+        player.transform.rotation = playerSpawn.rotation;*/
+        // Iniciar la generación de enemigos
         enemySpawner.StartGame();
         // Iniciar el TutorialTurtle
-        tutorialTurtle.StartGame();*/
+        tutorialTurtle.StartGame();
     }
 }

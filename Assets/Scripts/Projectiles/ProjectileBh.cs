@@ -6,7 +6,7 @@ public class ProjectileBh : MonoBehaviour
 {
     public float speed = 10f; // Velocidad del proyectil
     public float lifeTime = 5f; // Tiempo de vida del proyectil antes de destruirse automáticamente
-    public int damage = 10; // Daño que el proyectil inflige
+    public float damage = 10f; // Daño que el proyectil inflige
     public LayerMask playerLayer; // Capa del jugador
 
     private Rigidbody rb;
