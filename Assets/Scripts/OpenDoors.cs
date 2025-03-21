@@ -15,7 +15,7 @@ public class OpenDoors : MonoBehaviour
             doorAnimator = GetComponent<Animator>();
             if (doorAnimator == null)
             {
-                Debug.LogError("No se encontró el componente Animator en " + gameObject.name);
+                Debug.LogError("No se encontrï¿½ el componente Animator en " + gameObject.name);
             }
         }
     }
