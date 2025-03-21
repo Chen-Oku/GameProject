@@ -7,12 +7,13 @@ public class GolemBoss : MonoBehaviour
     public Transform[] patrolPoints;
     public float detectionRange;
     public float attackRange;
+    [SerializeField] private LayerMask attackLayers;
     public float attackCooldown;
     public float respawnTime;
     public GameObject door;
     public int maxHealth;
     public Transform bossSpawnPoint;
-    public int attackDamage = 20; // Daño del ataque
+    public int attackDamage = 20; // Daï¿½o del ataque
 
     private int currentHealth;
     private int currentPatrolIndex;
@@ -102,25 +103,28 @@ public class GolemBoss : MonoBehaviour
 
     private void PerformSinglePunchAttack()
     {
-        // Lógica para el ataque de un solo puño
+        // Lï¿½gica para el ataque de un solo puï¿½o
         animator.SetTrigger("SinglePunch");
     }
 
     private void PerformDoublePunchAttack()
     {
-        // Lógica para el ataque de dos puños
+        // Lï¿½gica para el ataque de dos puï¿½os
         animator.SetTrigger("DoublePunch");
     }
 
-    // Método llamado por el evento de animación para aplicar daño al jugador
+    // Mï¿½todo llamado por el evento de animaciï¿½n para aplicar daï¿½o al jugador
     public void ApplyDamage()
     {
-        if (Vector3.Distance(transform.position, player.position) <= attackRange)
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position + transform.forward * attackRange, attackRange, attackLayers);
+        if(hitColliders.Length != 0)
         {
-            PlayerHealth playerScript = player.GetComponent<PlayerHealth>();
-            if (playerScript != null)
+            foreach (Collider hitCollider in hitColliders)
             {
-                playerScript.TakeDamage(attackDamage);
+                if(hitCollider.TryGetComponent(out PlayerHealth playerScript))
+                {
+                    playerScript.TakeDamage(attackDamage);
+                }
             }
         }
     }
@@ -139,7 +143,7 @@ public class GolemBoss : MonoBehaviour
         {
             Die();
         }
-        // Activar la animación de recibir daño
+        // Activar la animaciï¿½n de recibir daï¿½o
         if (animator != null)
         {
             animator.SetTrigger("GetHit");
@@ -149,7 +153,7 @@ public class GolemBoss : MonoBehaviour
 
     IEnumerator ResetHitTrigger()
     {
-        yield return new WaitForSeconds(0.5f); // Ajusta el tiempo según sea necesario
+        yield return new WaitForSeconds(0.5f); // Ajusta el tiempo segï¿½n sea necesario
         if (animator != null)
         {
             animator.ResetTrigger("GetHit");

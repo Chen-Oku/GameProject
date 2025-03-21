@@ -43408,7 +43408,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 1.875
-    functionName: PerformDoublePunchAttack
+    functionName: ApplyDamage
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
