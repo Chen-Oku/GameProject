@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class OpenDoors : MonoBehaviour
 {
-    [SerializeField] private Animation doorAnimation;
+    [SerializeField] private Animator doorAnimator;
 
     private bool isOpen = false;
 
     private void Start()
     {
-        if (doorAnimation == null)
+        if (doorAnimator == null)
         {
-            doorAnimation = GetComponent<Animation>();
-            if (doorAnimation == null)
+            doorAnimator = GetComponent<Animator>();
+            if (doorAnimator == null)
             {
-                Debug.LogError("No se encontró el componente Animation en " + gameObject.name);
+                Debug.LogError("No se encontró el componente Animator en " + gameObject.name);
             }
         }
     }
@@ -34,9 +34,9 @@ public class OpenDoors : MonoBehaviour
 
     public void Open()
     {
-        if (!isOpen && doorAnimation != null)
+        if (!isOpen && doorAnimator != null)
         {
-            doorAnimation.CrossFade("DoorOpen", 0.1f);
+            doorAnimator.SetTrigger("IsOpen");
             isOpen = true;
             Debug.Log("Door opened."); // Log para verificar la apertura de la puerta
         }
@@ -44,9 +44,9 @@ public class OpenDoors : MonoBehaviour
 
     public void Close()
     {
-        if (isOpen && doorAnimation != null)
+        if (isOpen && doorAnimator != null)
         {
-            doorAnimation.Play("Close");
+            doorAnimator.SetTrigger("IsClose");
             isOpen = false;
             Debug.Log("Door closed."); // Log para verificar el cierre de la puerta
         }
