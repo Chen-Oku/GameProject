@@ -136,6 +136,7 @@ public class TurtleEnemyHealth : MonoBehaviour, IEnemy
     void Die()
     {
         if (isDead) return;
+        slider.value = CalculateCurrentHealth();
 
         // Activar la animación de muerte
         if (animator != null)

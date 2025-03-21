@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 969004097940908247}
   m_Layer: 6
   m_Name: Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -339,13 +339,13 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 2
+  m_Height: 1.7
   m_Radius: 0.4
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.84, z: 0}
+  m_Center: {x: 0, y: 0.7, z: 0}
 --- !u!114 &479664928925147021
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -405,7 +405,7 @@ MonoBehaviour:
   cameraTransform: {fileID: 9205453748222204442}
   speed: 6
   runSpeed: 12
-  jumpHeight: 3
+  jumpHeight: 2.5
   gravity: -9.81
   turnSmoothTime: 0.1
   dashSpeed: 20
@@ -423,6 +423,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b437626a114c6044682381e81eb1fc22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnergyBall: {fileID: 6820988876660420229, guid: d89258f187d07b64186405004fc96ddc,
+    type: 3}
+  spawnPoint: {fileID: 4695279689471535825}
+  projectileSpeed: 10
   attackDamage: 10
   attackRange: 2
   enemyLayer:
