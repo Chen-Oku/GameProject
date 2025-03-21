@@ -334,7 +334,7 @@ MonoBehaviour:
     m_Bits: 64
   walkPointRange: 2
   player: {fileID: 6384558227999906024, guid: 4f8907444a7f3f74eb829d9f3984f19c, type: 3}
-  timeBetweenAttacks: 4
+  timeBetweenAttacks: 3
   projectileType: FireBallP
   spawnProjectile: {fileID: 6502003885965734129}
   sightRange: 12
@@ -351,7 +351,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 4
+  m_Speed: 5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120

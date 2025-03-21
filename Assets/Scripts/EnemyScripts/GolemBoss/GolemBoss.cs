@@ -21,18 +21,20 @@ public class GolemBoss : MonoBehaviour
     private bool alreadyAttacked;
     private Animator animator;
     private NavMeshAgent agent;
+    private bool gameStarted = false; // Variable para controlar si el juego ha comenzado
 
-    public int scoreValue = 25; // Valor de puntaje del enemigo
+    public int scoreValue = 5000; // Valor de puntaje del enemigo
 
     void Start()
     {
         currentPatrolIndex = 0;
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         currentHealth = maxHealth;
         StartCoroutine(Patrol());
     }
+
 
     void Update()
     {
@@ -189,6 +191,13 @@ public class GolemBoss : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position + transform.forward * attackRange, attackRange);
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, detectionRange);
+    }
+
+    // Método para iniciar el juego y permitir que el GolemBoss comience a actuar
+    public void StartGame()
+    {
+        gameStarted = true;
+        StartCoroutine(Patrol());
     }
 }
 

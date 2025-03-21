@@ -17,6 +17,7 @@ public class InputManager : MonoBehaviour
     public bool Aim { get; private set; }
     public bool Interact { get; private set; }
 
+
     private void Awake()
     {
         //Get references
