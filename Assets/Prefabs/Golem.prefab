@@ -432,14 +432,14 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  detectionRange: 5
+  detectionRange: 8
   attackRange: 5
   attackCooldown: 2
   respawnTime: 10
   door: {fileID: 6927841381861589517, guid: 3dda783be886dfb48a1443f935be0a36, type: 3}
   maxHealth: 20
   bossSpawnPoint: {fileID: 0}
-  attackDamage: 20
+  attackDamage: 30
   scoreValue: 5000
 --- !u!54 &405429041780373013
 Rigidbody:

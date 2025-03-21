@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnergyBall : MonoBehaviour
 {
     public float speed = 20f; // Velocidad del proyectil
-    public float damage = 10f; // Da�o del proyectil
+    public int damage = 10; // Da�o del proyectil
     public float lifeTime = 5f; // Tiempo de vida del proyectil
 
     private Rigidbody rb;

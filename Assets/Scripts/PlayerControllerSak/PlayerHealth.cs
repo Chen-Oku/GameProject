@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public float maxHealth = 100f; // Salud m�xima del jugador
-    public float currentHealth; // Salud actual del jugador
+    public int maxHealth = 100; // Salud m�xima del jugador
+    public int currentHealth; // Salud actual del jugador
     private Animator animator; // Componente Animator
     public TextMeshProUGUI healthUI;
     bool isDead;
@@ -33,7 +33,7 @@ private float CurrentHealth{
         }
         else
         {
-            currentHealth = value;
+            currentHealth = (int)value;
         }
 
         if (healthUI != null)
@@ -77,7 +77,7 @@ private float CurrentHealth{
     }
 
     // M�todo para recibir da�o
-    public void TakeDamage(float damage)
+    public void TakeDamage(int damage)
     {
         CurrentHealth -= damage; // Reducir la salud actual
 
