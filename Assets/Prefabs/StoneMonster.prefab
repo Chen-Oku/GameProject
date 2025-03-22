@@ -334,10 +334,10 @@ MonoBehaviour:
     m_Bits: 64
   walkPointRange: 2
   player: {fileID: 6384558227999906024, guid: 4f8907444a7f3f74eb829d9f3984f19c, type: 3}
-  timeBetweenAttacks: 4
+  timeBetweenAttacks: 4.5
   projectileType: FireBallP
   spawnProjectile: {fileID: 6502003885965734129}
-  sightRange: 12
+  sightRange: 13
   attackRange: 9
   playerInSightRange: 0
   playerInAttackRange: 0

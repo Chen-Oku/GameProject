@@ -19,11 +19,15 @@ public class TutorialTurtle : MonoBehaviour
     [Header("Attack Stats")]
     private Transform player; // Jugador
 
+
     //States
     public float sightRange, stareRange;
     public bool playerInSightRange, playerInAttackRange;
 
     public event Action OnDestroyed; // Evento que se dispara cuando el enemigo es destruido
+
+    [Header("UI")]
+    public GameObject uiComandos; // Objeto de UI para mostrar el mensaje
 
     private void Awake()
     {
@@ -83,7 +87,30 @@ public class TutorialTurtle : MonoBehaviour
         lookDirection.y = 0; // Mantener la rotación solo en el eje Y
         transform.rotation = Quaternion.LookRotation(lookDirection);
 
-        // Aquí puedes agregar la lógica de ataque si es necesario
+
+        // Mostrar el mensaje si el jugador está en el rango de visión
+        if (playerInSightRange)
+        {
+            if (uiComandos != null)
+            {
+                uiComandos.SetActive(true);
+                StartCoroutine("WaitForSec");
+            }
+        }
+        else
+        {
+            if (uiComandos != null)
+            {
+                uiComandos.SetActive(false);
+            }
+        }
+    }
+
+    IEnumerator WaitForSec()
+    {
+        yield return new WaitForSeconds(10);
+        Destroy(uiComandos);
+        Destroy(gameObject);
     }
 
     private void OnDestroy()

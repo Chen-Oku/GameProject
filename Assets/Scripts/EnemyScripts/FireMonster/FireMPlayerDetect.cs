@@ -128,8 +128,8 @@ public class FireMPlayerDetect : MonoBehaviour
             Rigidbody rb = instantiatedProjectile.GetComponent<Rigidbody>();
 
             // Imprimir las coordenadas del punto de spawn y del proyectil instanciado
-            Debug.Log("SpawnProjectile Position: " + spawnProjectile.position);
-            Debug.Log("Instantiated Projectile Position: " + instantiatedProjectile.transform.position);
+            /*Debug.Log("SpawnProjectile Position: " + spawnProjectile.position);
+            Debug.Log("Instantiated Projectile Position: " + instantiatedProjectile.transform.position);*/
 
 
             if (rb != null)
@@ -139,7 +139,6 @@ public class FireMPlayerDetect : MonoBehaviour
 
                 // Aplica fuerzas al proyectil para lanzarlo hacia el jugador
                 rb.velocity = direction * 32f; // Usar velocity en lugar de AddForce para un control más directo
-                print("Proyectil lanzado");
             }
 
             // Inicializar el proyectil con el pool y el tipo

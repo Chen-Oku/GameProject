@@ -133,7 +133,6 @@ public class TurtlePlayerDetect : MonoBehaviour
             {
                 // Usar la dirección forward del proyectil para lanzarlo
                 rb.velocity = instantiatedProjectile.transform.forward * 32f;
-                print("Proyectil lanzado");
             }
 
             // Inicializar el proyectil con el pool y el tipo

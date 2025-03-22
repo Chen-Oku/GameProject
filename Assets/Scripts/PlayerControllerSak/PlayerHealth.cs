@@ -84,7 +84,7 @@ private float CurrentHealth{
        // healthBar.value = currentHealth; 
 
         // Imprimir mensaje de depuraci�n
-        print("Jugador recibi� da�o: " + damage + ". Salud actual: " + currentHealth);
+        //print("Jugador recibi� da�o: " + damage + ". Salud actual: " + currentHealth);
 
         // Actualizar la UI de salud
         if (healthUI != null)

@@ -1,6 +1,8 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class GolemBoss : MonoBehaviour, IEnemy
 {
@@ -11,11 +13,15 @@ public class GolemBoss : MonoBehaviour, IEnemy
     public float attackCooldown;
     public float respawnTime;
     public GameObject door;
-    public int maxHealth;
     public Transform bossSpawnPoint;
-    public int attackDamage = 20; // Da�o del ataque
+    public int attackDamage = 20; // Daño del ataque
 
+    public int maxHealth = 500;
     private int currentHealth;
+    public TextMeshProUGUI healthUI;
+    public GameObject healthBarUI;
+    public Slider slider;
+
     private int currentPatrolIndex;
     private Transform player;
     private bool isDead;
@@ -25,9 +31,13 @@ public class GolemBoss : MonoBehaviour, IEnemy
     public event System.Action OnDestroyed;
 
     public int scoreValue = 25; // Valor de puntaje del enemigo
+    public bool isAttackable = true;
 
     void Start()
     {
+        currentHealth = maxHealth; // Inicializar la salud actual
+        UpdateHealthUI();
+
         // Buscar automáticamente los puntos de patrulla con la etiqueta "BossWayPoint"
         GameObject[] wayPointObjects = GameObject.FindGameObjectsWithTag("BossWayPoint");
         patrolPoints = new Transform[wayPointObjects.Length];
@@ -47,17 +57,39 @@ public class GolemBoss : MonoBehaviour, IEnemy
             Debug.LogError("No se encontró ningún objeto con la etiqueta 'BossDoor'.");
         }
 
+        // Asegurarse de que la barra de salud esté oculta al inicio
+        if (healthBarUI != null)
+        {
+            healthBarUI.SetActive(false);
+        }
+
         currentPatrolIndex = 0;
         player = GameObject.FindGameObjectWithTag("Player").transform;
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
-        currentHealth = maxHealth;
         StartCoroutine(Patrol());
     }
 
     void Update()
     {
         if (isDead) return;
+
+        UpdateHealthUI();
+
+        if (currentHealth < maxHealth)
+        {
+            healthBarUI.SetActive(true);
+        }
+
+        if (currentHealth <= 0)
+        {
+            healthBarUI.SetActive(false);
+        }
+
+        if (currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
 
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
         bool playerInSightRange = distanceToPlayer < detectionRange;
@@ -68,10 +100,24 @@ public class GolemBoss : MonoBehaviour, IEnemy
         if (playerInSightRange && playerInAttackRange) AttackPlayer();
     }
 
+    void UpdateHealthUI()
+    {
+        if (slider != null)
+        {
+            slider.value = (float)currentHealth / maxHealth;
+        }
+
+        if (healthUI != null)
+        {
+            healthUI.text = currentHealth.ToString();
+        }
+    }
+
     IEnumerator Patrol()
     {
         while (true)
         {
+            if (isDead) yield break; // No patrullar si está muerto
             if (patrolPoints.Length == 0) yield break;
 
             Transform targetPoint = patrolPoints[currentPatrolIndex];
@@ -123,9 +169,9 @@ public class GolemBoss : MonoBehaviour, IEnemy
 
     private void PerformSinglePunchAttack()
     {
-        if(animator != null)
+        if (animator != null)
         {
-            // L�gica para el ataque de un solo pu�o
+            // Lógica para el ataque de un solo puño
             animator.SetTrigger("SinglePunch");
             StartCoroutine(ResetAttackTrigger());
         }
@@ -134,32 +180,32 @@ public class GolemBoss : MonoBehaviour, IEnemy
 
     private void PerformDoublePunchAttack()
     {
-        if(animator != null)
+        if (animator != null)
         {
-            // L�gica para el ataque de dos pu�os
+            // Lógica para el ataque de dos puños
             animator.SetTrigger("DoublePunch");
             StartCoroutine(ResetAttackTrigger());
         }
     }
 
-    // M�todo llamado por el evento de animaci�n para aplicar da�o al jugador
+    // Método llamado por el evento de animación para aplicar daño al jugador
     public void ApplyDamage()
     {
         Collider[] hitColliders = Physics.OverlapSphere(transform.position + transform.forward * attackRange, attackRange, attackLayers);
-        if(hitColliders.Length != 0)
+        if (hitColliders.Length != 0)
         {
             foreach (Collider hitCollider in hitColliders)
             {
-                if(hitCollider.TryGetComponent(out PlayerHealth playerScript))
+                if (hitCollider.TryGetComponent(out PlayerHealth playerScript))
                 {
                     playerScript.TakeDamage(attackDamage);
                 }
             }
         }
     }
-        IEnumerator ResetAttackTrigger()
+    IEnumerator ResetAttackTrigger()
     {
-        yield return new WaitForSeconds(0.5f); // Ajusta el tiempo seg�n sea necesario
+        yield return new WaitForSeconds(0.5f); // Ajusta el tiempo según sea necesario
         if (animator != null)
         {
             animator.ResetTrigger("SinglePunch");
@@ -176,8 +222,12 @@ public class GolemBoss : MonoBehaviour, IEnemy
     {
         if (isDead) return;
 
-        currentHealth -= (int) damage;
-        // Activar la animaci�n de recibir da�o
+        currentHealth -= (int)damage;
+
+        // Actualizar la UI de salud
+        UpdateHealthUI();
+
+        // Activar la animación de recibir daño
         if (animator != null)
         {
             animator.SetTrigger("GetHit");
@@ -191,7 +241,7 @@ public class GolemBoss : MonoBehaviour, IEnemy
 
     IEnumerator ResetHitTrigger()
     {
-        yield return new WaitForSeconds(0.5f); // Ajusta el tiempo seg�n sea necesario
+        yield return new WaitForSeconds(0.5f); // Ajusta el tiempo según sea necesario
         if (animator != null)
         {
             animator.ResetTrigger("GetHit");
@@ -201,13 +251,18 @@ public class GolemBoss : MonoBehaviour, IEnemy
 
     void Die()
     {
-        isDead = true;
+        if (isDead) return;
+        UpdateHealthUI();
 
-        // Activar la animaci�n de muerte
+        // Activar la animación de muerte
         if (animator != null)
         {
             animator.SetTrigger("Die");
         }
+
+        // Establecer el enemigo como no atacable
+        isAttackable = false;
+
         ScoreManager.instance.AddScore(scoreValue);
         OpenDoors openDoors = door.GetComponent<OpenDoors>();
         if (openDoors != null)
@@ -232,10 +287,17 @@ public class GolemBoss : MonoBehaviour, IEnemy
         isDead = false;
         currentHealth = maxHealth;
         transform.position = bossSpawnPoint.position;
+
+        // Reactivar el agente de navegación
+        if (agent != null)
+        {
+            agent.isStopped = false;
+        }
+
         StartCoroutine(Patrol());
     }
 
-     public int GetScoreValue()
+    public int GetScoreValue()
     {
         return scoreValue;
     }
@@ -248,5 +310,4 @@ public class GolemBoss : MonoBehaviour, IEnemy
         Gizmos.DrawWireSphere(transform.position, detectionRange);
     }
 }
-
 

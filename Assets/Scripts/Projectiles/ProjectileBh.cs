@@ -42,7 +42,6 @@ public class ProjectileBh : MonoBehaviour
             if (playerHealth != null)
             {
                 playerHealth.TakeDamage(damage);
-                Debug.Log("Jugador recibió daño: " + damage);
             }
         }
 

@@ -94,8 +94,8 @@ GameObject:
   - component: {fileID: 2181512825737963981}
   - component: {fileID: 5027708282871815877}
   - component: {fileID: 3919692260281570263}
-  - component: {fileID: 1679213585287662785}
   - component: {fileID: 9165348641174542557}
+  - component: {fileID: 1679213585287662785}
   m_Layer: 11
   m_Name: MajorHealthBuff
   m_TagString: Untagged
@@ -169,6 +169,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &9165348641174542557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3802517537732812966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2232c533bcc4b004bb170046f6c38230, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  powerUpEffect: {fileID: 11400000, guid: 07c3ff67dc83c3b41b24371105083305, type: 2}
 --- !u!136 &1679213585287662785
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -188,20 +201,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.1
+  m_Radius: 0.12
   m_Height: 0.1
   m_Direction: 1
   m_Center: {x: 0, y: 0.17, z: 0}
---- !u!114 &9165348641174542557
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3802517537732812966}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2232c533bcc4b004bb170046f6c38230, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  powerUpEffect: {fileID: 11400000, guid: 07c3ff67dc83c3b41b24371105083305, type: 2}

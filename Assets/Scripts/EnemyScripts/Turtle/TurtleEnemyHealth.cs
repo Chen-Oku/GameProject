@@ -153,7 +153,7 @@ public class TurtleEnemyHealth : MonoBehaviour, IEnemy
 
         isDead = true;
         OnDestroyed?.Invoke();
-        Destroy(gameObject, 5f);
+        Destroy(gameObject, 3f);
     }
 
     public int GetScoreValue()

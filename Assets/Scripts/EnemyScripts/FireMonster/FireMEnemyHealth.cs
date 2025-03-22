@@ -155,7 +155,7 @@ public class FireMEnemyHealth : MonoBehaviour, IEnemy
         // Soltar un PowerUP con una probabilidad
         PowerUpProb.instance.DropPowerUp(transform.position);
 
-        Destroy(gameObject, 5f);
+        Destroy(gameObject, 3f);
     }
 
     public void SetWaypoints(Transform[] waypoints)

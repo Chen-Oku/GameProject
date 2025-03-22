@@ -6,8 +6,8 @@ public class PlayerAttack : MonoBehaviour
 {
     public GameObject EnergyBall;   // Prefab de la bola de energ�a
     public Transform spawnPoint;    // Desde donde se dispara la bola de energía
-    public float projectileSpeed = 10f; // Velocidad de la bola de energ�a
-    public float attackDamage = 10f; // Da�o del ataque
+    public int projectileSpeed = 10; // Velocidad de la bola de energ�a
+    public int attackDamage = 10; // Da�o del ataque
     public float attackRange = 1.5f; // Rango del ataque
     public LayerMask enemyLayer; // Capa de los enemigos
     public float attackCooldown = 1f; // Tiempo de espera entre ataques
