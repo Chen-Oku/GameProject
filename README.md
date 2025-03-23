@@ -10,7 +10,10 @@ Explora y enfréntate a los retos que se encuentran en el camino para salir de e
 
 - **Moverse**: Usa las teclas **W, A, S, D**.
 - **Ataque cuerpo a cuerpo**: Clic izquierdo del mouse.
-- **Ataque a distancia**: presionado el clic derecho del mouse.
+- **Ataque a distancia**: Presionado el clic derecho del mouse.
+- **Saltar**: Presiona la tecla "Espacio"
+- **Correr**: Usa "Shift Izquierdo"
+- **Dash**: Presiona la tecla E
   
 ---
 
