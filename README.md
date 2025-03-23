@@ -17,7 +17,7 @@ Explora y enfréntate a los retos que se encuentran en el camino para salir de e
 ### Instalación
 1. Clona este repositorio:
    ```bash
-   [https://github.com/Chen-Oku/GameProject.git](https://github.com/Chen-Oku/GameProject.git)
+   https://github.com/Chen-Oku/GameProject.git
 2. Abre el proyecto en Unity.
 3. Ejecuta el juego presionando el botón "Play".
 
