@@ -24,6 +24,9 @@ Explora y enfréntate a los retos que se encuentran en el camino para salir de e
 2. Abre el proyecto en Unity.
 3. Ejecuta el juego presionando el botón "Play".
 
+### Version de Unity
+2022.3.22f1 3D Univesal URP
+
 ---
 
    Estado del proyecto
