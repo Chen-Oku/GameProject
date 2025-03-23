@@ -29,10 +29,10 @@ Explora y enfréntate a los retos que se encuentran en el camino para salir de e
 
 ---
 
-   Estado del proyecto
+### Estado del proyecto
 Este proyecto es un prototipo desarrollado para fines educativos. Actualmente se encuentra en su fase inicial.
 
-Recursos Utilizados
+### Recursos Utilizados
  - Idyllic Fantasy Nature
    Edenity
    [https://assetstore.unity.com/packages/3d/environments/fantasy/idyllic-fantasy-nature-260042](https://assetstore.unity.com/packages/3d/environments/fantasy/idyllic-fantasy-nature-260042)
@@ -60,11 +60,11 @@ Recursos Utilizados
 ### Licencia
 Este proyecto fue creado con fines académicos y no tiene uso comercial.
 
-Créditos
+### Créditos
 Diseño y programación: 
 - Miguel Velandia Sierra [https://github.com/Chen-Oku](https://github.com/Chen-Oku)
 - Clara Manuela Restrepo Rua [https://github.com/ClaraRestrepoRua12](https://github.com/ClaraRestrepoRua12)
 
-Supervisión: Profesor
+### Supervisión: Profesor
 - Daniel Hoyos Correa
 
