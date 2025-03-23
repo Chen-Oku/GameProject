@@ -57,7 +57,7 @@ Recursos Utilizados
    WizP
    [https://wizp.itch.io/stylized-asian-village](https://wizp.itch.io/stylized-asian-village )
 
-Licencia
+### Licencia
 Este proyecto fue creado con fines académicos y no tiene uso comercial.
 
 Créditos
