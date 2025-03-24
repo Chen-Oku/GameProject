@@ -1,7 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -19,8 +17,7 @@ public class TutorialTurtle : MonoBehaviour
     [Header("Attack Stats")]
     private Transform player; // Jugador
 
-
-    //States
+    // States
     public float sightRange, stareRange;
     public bool playerInSightRange, playerInAttackRange;
 
@@ -28,6 +25,8 @@ public class TutorialTurtle : MonoBehaviour
 
     [Header("UI")]
     public GameObject uiComandos; // Objeto de UI para mostrar el mensaje
+    private Coroutine uiCoroutine; // Declaración de la variable uiCoroutine
+    private bool canShowUI = true; // Variable para controlar la reactivación de la UI
 
     private void Awake()
     {
@@ -39,6 +38,10 @@ public class TutorialTurtle : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
+        if (uiComandos != null)
+        {
+            uiComandos.SetActive(false); // Asegurarse de que el objeto de UI esté oculto al inicio
+        }
     }
 
     void Update()
@@ -58,6 +61,20 @@ public class TutorialTurtle : MonoBehaviour
         {
             animator.SetBool("isPatrolling", true);
             animator.SetBool("isChasing", false);
+        }
+
+        // Mostrar el mensaje si el jugador está en el rango de visión
+        if (playerInSightRange && canShowUI)
+        {
+            if (uiComandos != null && uiCoroutine == null)
+            {
+                UIManager.instance.ShowUI(uiComandos);
+                uiCoroutine = StartCoroutine(WaitForSec());
+            }
+        }
+        else if (!playerInSightRange)
+        {
+            canShowUI = true; // Permitir que la UI se muestre nuevamente cuando el jugador vuelva a entrar en el rango
         }
     }
 
@@ -87,30 +104,18 @@ public class TutorialTurtle : MonoBehaviour
         lookDirection.y = 0; // Mantener la rotación solo en el eje Y
         transform.rotation = Quaternion.LookRotation(lookDirection);
 
-
-        // Mostrar el mensaje si el jugador está en el rango de visión
-        if (playerInSightRange)
-        {
-            if (uiComandos != null)
-            {
-                uiComandos.SetActive(true);
-                StartCoroutine("WaitForSec");
-            }
-        }
-        else
-        {
-            if (uiComandos != null)
-            {
-                uiComandos.SetActive(false);
-            }
-        }
+        // Aquí puedes agregar la lógica de ataque si es necesario
     }
 
     IEnumerator WaitForSec()
     {
-        yield return new WaitForSeconds(10);
-        Destroy(uiComandos);
-        Destroy(gameObject);
+        yield return new WaitForSeconds(7);
+        if (uiComandos != null)
+        {
+            UIManager.instance.HideActiveUI();
+        }
+        uiCoroutine = null; // Resetear la corrutina
+        canShowUI = false; // Evitar que la UI se muestre nuevamente hasta que el jugador salga del rango
     }
 
     private void OnDestroy()
@@ -127,4 +132,3 @@ public class TutorialTurtle : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, sightRange);
     }
 }
-
