@@ -10,6 +10,7 @@ public class PlayerHealth : MonoBehaviour
     public float currentHealth; // Salud actual del jugador
     private Animator animator; // Componente Animator
     public TextMeshProUGUI healthUI;
+    public GameObject gameOverUI; // Objeto de UI para mostrar el menú de "Game Over"
     bool isDead;
 
     //public GameObject healthBarUI;
@@ -124,8 +125,14 @@ private float CurrentHealth{
             animator.SetBool("isDead", true);
         }
 
-        // Desactivar el objeto del jugador despu�s de un tiempo
-        Destroy(gameObject, 5f);
+       /* // Desactivar el objeto del jugador despu�s de un tiempo
+        Destroy(gameObject, 5f);*/
+
+        // Mostrar el menú de "Game Over"
+        if (gameOverUI != null)
+        {
+            gameOverUI.SetActive(true);
+        }
     }
 
     // Método para recoger el power-up de salud

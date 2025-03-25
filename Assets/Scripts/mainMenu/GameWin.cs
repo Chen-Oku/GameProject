@@ -1,23 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameWin : MonoBehaviour
 {
-    public TextMeshProUGUI pointsText;
-    public GameObject menuPrincipal;  // Arrastra aquí el GameObject "MenuPrincipal" en el Inspector
-    public GameObject menuGanaste;    // Arrastra aquí el GameObject "MenuGanaste" en el Inspector
-    public void Setup(int score)
+    public void MainMenu()
     {
-        gameObject.SetActive(true);
-        pointsText.text = score.ToString() + " POINTS";
+        SceneManager.LoadScene(0);
     }
 
-    public void ReturnToMenu()
+    public void GameProject()
     {
-        menuGanaste.SetActive(false);  // Oculta la pantalla de Victoria
-        menuPrincipal.SetActive(true); // Muestra el menú principal
+        SceneManager.LoadScene(1);
     }
+
+    private void Start()
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+        Debug.Log("Quitting Game");
+    }
+
 }

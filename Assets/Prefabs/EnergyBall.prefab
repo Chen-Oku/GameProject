@@ -9729,7 +9729,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   damage: 10
-  lifeTime: 5
+  lifeTime: 2.5
 --- !u!1 &7478506229896488666
 GameObject:
   m_ObjectHideFlags: 0
