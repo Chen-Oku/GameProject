@@ -1,4 +1,4 @@
-# GameProject
+# Shizuka
  
 Proyecto realizado para una práctica, donde se debe realizar el nivel de un juego que permita experimentar el movimiento, acciones y el entorno a través de un game loop.
 
