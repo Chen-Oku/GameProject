@@ -3,67 +3,62 @@ using UnityEngine;
 
 public class CannonManager : MonoBehaviour
 {
-    public Camera cannonCamera; // Cámara del cañón
     public GameObject player; // Jugador
     public Transform firePoint; // Punto de disparo del cañón
     public GameObject projectilePrefab; // Prefab del proyectil
     public float fireForce = 20f; // Fuerza del disparo
+    public GameObject fireButton; // Botón en el mapa para disparar el cañón
+    public float rotationStep = 30f; // Grados de rotación por golpe
 
-    private Camera playerCamera; // Cámara del jugador
-    private bool isControllingCannon = false;
+    private PlayerAttack playerAttack; // Referencia al script PlayerAttack
 
     void Start()
     {
-        playerCamera = Camera.main; // Asignar la cámara principal del jugador
-        cannonCamera.gameObject.SetActive(false); // Desactivar la cámara del cañón al inicio
+        playerAttack = player.GetComponent<PlayerAttack>();
+        if (playerAttack == null)
+        {
+            Debug.LogError("No se encontró el componente PlayerAttack en " + player.name);
+        }
     }
 
     void Update()
     {
-        if (isControllingCannon)
+        // No es necesario actualizar nada en cada frame en este caso
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+
+        if (collision.gameObject.CompareTag("Player"))
         {
-            if (Input.GetButtonDown("Fire1"))
-            {
-                FireCannon();
-            }
+            playerAttack.PerformAttack();
+            RotateCannon();
+            print("CannonManager: Cannon rotated");
         }
     }
 
-    void OnTriggerEnter(Collider other)
+    void RotateCannon()
     {
-        if (other.CompareTag("Player"))
+        transform.Rotate(0, rotationStep, 0); // Rotar el cañón 30 grados en el eje Y
+    }
+
+    void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject == fireButton && Input.GetKeyDown(KeyCode.Space))
         {
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                EnterCannon();
-                print("Enter Cannon");
-            }
+            FireCannon();
         }
     }
 
-    void EnterCannon()
-    {
-        isControllingCannon = true;
-        player.SetActive(false); // Desactivar el jugador
-        playerCamera.gameObject.SetActive(false); // Desactivar la cámara del jugador
-        cannonCamera.gameObject.SetActive(true); // Activar la cámara del cañón
-    }
-
-    void FireCannon()
+    public void FireCannon()
     {
         GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
         Rigidbody rb = projectile.GetComponent<Rigidbody>();
         rb.AddForce(firePoint.forward * fireForce, ForceMode.Impulse);
     }
-
-    public void ExitCannon()
-    {
-        isControllingCannon = false;
-        player.SetActive(true); // Activar el jugador
-        playerCamera.gameObject.SetActive(true); // Activar la cámara del jugador
-        cannonCamera.gameObject.SetActive(false); // Desactivar la cámara del cañón
-    }
 }
+
+
 
 
 

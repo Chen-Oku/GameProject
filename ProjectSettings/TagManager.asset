@@ -9,6 +9,7 @@ TagManager:
   - Water
   - BossWayPoint
   - BossDoor
+  - CannonProjectile
   layers:
   - Default
   - TransparentFX

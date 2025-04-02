@@ -8,7 +8,7 @@ public class CannonBallS : MonoBehaviour
 {
 
     public float lifeTime = 5f;
-    public GameObject explosion;
+    //public GameObject explosion;
     public float minY = -5f;
 
     void Start()
@@ -38,15 +38,17 @@ public class CannonBallS : MonoBehaviour
 
     void CannonBallSDestroy()
     {
-        Instantiate(explosion, transform.position, transform.rotation);
+        //Instantiate(explosion, transform.position, transform.rotation);
         Destroy(this.gameObject);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Target")
+        CannonBallSDestroy();
+       /* if (collision.gameObject.tag == "Target")
         {
             CannonBallSDestroy();
-        }
+        }*/
     }
+
 }
