@@ -1560,6 +1560,16 @@ MonoBehaviour:
   slider: {fileID: 7855850939029475325}
   scoreValue: 9999
   isAttackable: 1
+  rockPrefabs:
+  - {fileID: 3889046910303973218, guid: c57c6d86541c2ce4d945cda785dff148, type: 3}
+  - {fileID: 455221064620565400, guid: 1143e9a6e0fab4c4696b4e9e63a8d7b6, type: 3}
+  - {fileID: 709030090923673353, guid: 1fe834d4b513c8840a23d3f56793af7d, type: 3}
+  - {fileID: 4502823302244845586, guid: 78f4fda6b7fccb646bf8ac8de2537205, type: 3}
+  - {fileID: 5738077422291248339, guid: fda1d90552c23d54093acc5a44c8067a, type: 3}
+  - {fileID: 1055022842215460182, guid: 532217a856dbab64ab8d9bdb743876dc, type: 3}
+  rocksPerAttack: 20
+  spawnRadius: 12
+  spawnHeight: 15
 --- !u!54 &7521624794256794686
 Rigidbody:
   m_ObjectHideFlags: 0

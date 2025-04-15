@@ -208,8 +208,8 @@ BoxCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_ProvidesContacts: 1
+  m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 0.51}
   m_Center: {x: 0, y: 0, z: 0.25}
@@ -229,8 +229,8 @@ BoxCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_ProvidesContacts: 1
+  m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 0.51}
   m_Center: {x: 0, y: 0, z: -0.26}
@@ -356,6 +356,7 @@ GameObject:
   - component: {fileID: 2474260182097350635}
   - component: {fileID: 2644585424983279467}
   - component: {fileID: 293901876678126419}
+  - component: {fileID: 7762684779754022214}
   m_Layer: 3
   m_Name: BaseGiratoria (1)
   m_TagString: Untagged
@@ -411,7 +412,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -432,7 +433,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -453,7 +454,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -474,7 +475,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -505,8 +506,21 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 90
+  m_Constraints: 80
   m_CollisionDetection: 0
+--- !u!114 &7762684779754022214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7902988544306878371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f75ca58786f1fc41b04cc4a4700ae71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 50
 --- !u!1 &8333948322490895359
 GameObject:
   m_ObjectHideFlags: 0
@@ -608,8 +622,8 @@ BoxCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_ProvidesContacts: 1
+  m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 0.35}
   m_Center: {x: 0, y: 0, z: 0.33}
@@ -629,8 +643,8 @@ BoxCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_ProvidesContacts: 1
+  m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 0.35}
   m_Center: {x: 0, y: 0, z: -0.33}
@@ -692,31 +706,8 @@ PrefabInstance:
     - {fileID: 173610, guid: 3a3cc95293df01741b392867d0340f4c, type: 3}
     - {fileID: 136734, guid: 3a3cc95293df01741b392867d0340f4c, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 116434, guid: 3a3cc95293df01741b392867d0340f4c,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 9053493265766715263}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3a3cc95293df01741b392867d0340f4c, type: 3}
---- !u!1 &4149495038200715390 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 116434, guid: 3a3cc95293df01741b392867d0340f4c,
-    type: 3}
-  m_PrefabInstance: {fileID: 4149495038200700588}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &9053493265766715263
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4149495038200715390}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f75ca58786f1fc41b04cc4a4700ae71, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotationSpeed: 50
 --- !u!4 &4149495038200781676 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 443840, guid: 3a3cc95293df01741b392867d0340f4c,

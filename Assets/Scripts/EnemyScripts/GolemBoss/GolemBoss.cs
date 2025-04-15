@@ -33,6 +33,13 @@ public class GolemBoss : MonoBehaviour, IEnemy
     public int scoreValue = 25; // Valor de puntaje del enemigo
     public bool isAttackable = true;
 
+    /// Variables para el ataque de rocas
+    public GameObject[] rockPrefabs; // Prefab de la roca a invocar
+    public int rocksPerAttack = 3; // Cuántas rocas caen por ataque
+    public float spawnRadius = 5f; // Radio alrededor del jugador donde caen las rocas
+    public float spawnHeight = 15f; // Altura desde la que caen las rocas
+
+
     void Start()
     {
         currentHealth = maxHealth; // Inicializar la salud actual
@@ -173,6 +180,7 @@ public class GolemBoss : MonoBehaviour, IEnemy
         {
             // Lógica para el ataque de un solo puño
             animator.SetTrigger("SinglePunch");
+            SpawnFallingRocks(); // Invoca rocas al atacar
             StartCoroutine(ResetAttackTrigger());
         }
 
@@ -184,7 +192,30 @@ public class GolemBoss : MonoBehaviour, IEnemy
         {
             // Lógica para el ataque de dos puños
             animator.SetTrigger("DoublePunch");
+            SpawnFallingRocks(); // Invoca rocas al atacar
             StartCoroutine(ResetAttackTrigger());
+        }
+    }
+
+    private void SpawnFallingRocks()
+    {
+        if (player == null || rockPrefabs == null || rockPrefabs.Length == 0) return;
+
+        for (int i = 0; i < rocksPerAttack; i++)
+        {
+            Vector2 randomCircle = Random.insideUnitCircle * spawnRadius;
+            Vector3 spawnPos = player.position + new Vector3(randomCircle.x, spawnHeight, randomCircle.y);
+
+            int prefabIndex = Random.Range(0, rockPrefabs.Length);
+            GameObject rock = Instantiate(rockPrefabs[prefabIndex], spawnPos, Quaternion.identity);
+
+            // Aplica una velocidad de caída aleatoria
+            Rigidbody rb = rock.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                float fallSpeed = Random.Range(15f, 45f); // Ajusta el rango como prefieras
+                rb.velocity = Vector3.down * fallSpeed;
+            }
         }
     }
 
@@ -205,7 +236,7 @@ public class GolemBoss : MonoBehaviour, IEnemy
     }
     IEnumerator ResetAttackTrigger()
     {
-        yield return new WaitForSeconds(0.5f); // Ajusta el tiempo según sea necesario
+        yield return new WaitForSeconds(0.3f); // Ajusta el tiempo según sea necesario
         if (animator != null)
         {
             animator.ResetTrigger("SinglePunch");
