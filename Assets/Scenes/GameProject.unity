@@ -5255,6 +5255,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1765702794}
     m_Modifications:
+    - target: {fileID: 1439618894032177140, guid: 4d7359a5107c46e45a2f8cbd271215c3,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3323131705201430217, guid: 4d7359a5107c46e45a2f8cbd271215c3,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3345260507003668219, guid: 4d7359a5107c46e45a2f8cbd271215c3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5320,6 +5330,11 @@ PrefabInstance:
       propertyPath: mainCam
       value: 
       objectReference: {fileID: 27832078}
+    - target: {fileID: 6327907064154850663, guid: 4d7359a5107c46e45a2f8cbd271215c3,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6605356408341656711, guid: 4d7359a5107c46e45a2f8cbd271215c3,
         type: 3}
       propertyPath: m_Name
