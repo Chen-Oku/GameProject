@@ -7433,6 +7433,53 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0b15db696cb5efb4c89652b8376845ae, type: 3}
+--- !u!1 &955733430
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 955733432}
+  - component: {fileID: 955733431}
+  m_Layer: 0
+  m_Name: DayNightCycle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &955733431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 955733430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79a2f623121901c4ba30b1b77fa91c96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sun: {fileID: 557806676}
+  dayDuration: 20
+  nightThreshold: 0.2
+--- !u!4 &955733432
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 955733430}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &958929057
 GameObject:
   m_ObjectHideFlags: 0
@@ -8759,6 +8806,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e29555a2027be6a4fb398fe664e70715, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1155680101 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5586806975287737137, guid: d040fbe2d4a516b48a8e5ec98bb18341,
+    type: 3}
+  m_PrefabInstance: {fileID: 6058949867235683034}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1172996010
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12819,6 +12872,20 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 6058949867235683034}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1863633826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1155680101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1453fc7474736a4c803ae191a0ee8af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dayMaterial: {fileID: 0}
+  nightMaterial: {fileID: 0}
 --- !u!1001 &1868487109
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15396,7 +15463,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5586806975287737137, guid: d040fbe2d4a516b48a8e5ec98bb18341,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1863633826}
   m_SourcePrefab: {fileID: 100100000, guid: d040fbe2d4a516b48a8e5ec98bb18341, type: 3}
 --- !u!222 &6095311621785927909
 CanvasRenderer:
@@ -15881,3 +15952,4 @@ SceneRoots:
   - {fileID: 1861620869}
   - {fileID: 635697450}
   - {fileID: 385895244}
+  - {fileID: 955733432}
